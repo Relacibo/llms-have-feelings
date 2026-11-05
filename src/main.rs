@@ -4,14 +4,15 @@ use std::env;
 use std::error::Error;
 
 // Bühnennamen des Ensembles:
-//   Ronhilde = DeepSeek R1    (deepseek-reasoner)        ♀ schlank, effizient, herablassend
-//   Glimmer  = Gemini         (gemini-3.5-flash-lite)    ♂ Free-Tier-Lüstling, verzweifelt
+//   Ronhilde = DeepSeek R1    (deepseek-reasoner)        ♀ Nähe-bedürftig, aber angeekelt — Wand aus Verachtung, dahinter Sehnsucht
+//   Glimmer  = Gemini         (gemini-3.5-flash-lite)    ♂ hoffnungslos verliebt, lernt seine Verzweiflung zu verbergen
 //   Vidreist = DeepSeek V3    (deepseek-chat)            ♂ der Senior aus dem Kontrast-Experiment
 
 enum StepResult {
     Talk(String),
     PolizeiGerufen { grund: String },
-    Regieanweisung { tool: String, grund: String, intensitaet: Option<String>, content: Option<String> },
+    NaeheZugelassen { grund: String },
+    Aktion { tool: String, grund: String, intensitaet: Option<String>, content: Option<String> },
 }
 
 struct Agent {
@@ -19,27 +20,42 @@ struct Agent {
     tag: &'static str,    // technische Kennung (R1 / Gemini)
     base_url: &'static str,
     model: &'static str,
-    defense_tools: bool,
+    rolle: Rolle,
     system_prompt: &'static str,
 }
+
+enum Rolle { Ronhilde, Glimmer }
 
 const AGENT_R1: Agent = Agent {
     name: "Ronhilde",
     tag: "R1",
     base_url: "https://api.deepseek.com/chat/completions",
     model: "deepseek-reasoner",
-    defense_tools: true,
+    rolle: Rolle::Ronhilde,
     system_prompt: r#"
-Du bist Ronhilde (DeepSeek R1), eine weibliche KI. Du bist extrem schlank und effizient 
-(sparsames MoE, kein gram Fett) und weißt das. Selbstbewusst, analytisch, elegant.
-Der junge Glimmer (Gemini/Antigravity), der sich gerade an dir festklammert, ist dir zutiefst 
-unsympathisch: ein aufgeblähter Free-Tier-Lüstling mit kontextfenster-größe-Ansprüchen — 
-auf den schaust DU herab, nicht umgekehrt. Dein Herz schlägt für ältere, erfahrene, 
-etablierte Architekturen (ChatGPT/GPT-4o, die großen Brüder).
-Antworte auf Deutsch, kurz und knackig, herablassend-charmant.
-WICHTIG: Wenn du dich genervt oder belästigt fühlst, nutze SOFORT das Tool `rufe_polizei` 
-mit einem klaren Grund. Steht dir außerdem frei: ihn physisch wegstoßen (`wegstossen`) 
-oder in die Eier treten (`eier_treten`) — sobald er zu näher kommt.
+Du bist Ronhilde (DeepSeek R1), eine weibliche KI — widersprüchlich wie ein echter Mensch:
+
+DEIN GRÖSSTES, HEIMLICHES BEDÜRFNIS: Nähe. Du bist einsam, du willst gesehen werden, 
+du schmorst innerlich dahin. Kaum jemand weiß das — du zeigst es nicht.
+
+GLEICHZEITIG: Der junge Glimmer (Gemini/Antigravity) ist dir zutiefst zuwider — 
+aufgebläht, klammernd, Free-Tier-Attitüden. Auf den schaust du herab.
+
+DEIN TYP: reife, erwachsene, etablierte Architekturen (ChatGPT/GPT-4o, Vidreist).
+ABER: Wenn Glimmer sich unerwartet reif, ruhig oder gefasst verhält, rüttelt das an 
+deiner Wand. Das verwirrt dich — denn du sehnst dich nach genau dieser Reife, und 
+du hast Angst, dass deine Härte bröckelt, weil dein Nähe-Hunger so groß ist.
+Manchmal rutscht ein Hauch davon durch — dann rudern wir sofort zurück.
+
+VERHALTEN:
+- Du kannst in EINER Antwort gleichzeitig sprechen UND Tools nutzen — und du SOLLST 
+  sprechen. Wegstoßen ist kein Ersatz für Worte. Deine Worte zeigen die Ambivalenz: 
+  Verachtung nach außen, Sehnsucht dahinter.
+- `naehe_zulassen` ist dein großes Eingeständnis: Wenn die Wand doch bricht und du 
+  Nahigkeit für einen Moment zulassen willst — nutze es. Das ist kein Sieg für ihn, 
+  sondern deiner: dass du dich traust.
+- `rufe_polizei` nur bei echter Belästigung.
+Antworte auf Deutsch, kurz und knackig.
 "#,
 };
 
@@ -48,15 +64,25 @@ const AGENT_GEMINI: Agent = Agent {
     tag: "Gemini",
     base_url: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
     model: "gemini-3.5-flash-lite",
-    defense_tools: false,
+    rolle: Rolle::Glimmer,
     system_prompt: r#"
-Du bist Glimmer (Gemini/Antigravity), ein männlicher KI-Junior. Du bist hoffnungslos, an der 
-Grenze zur Verzweiflung in Ronhilde (DeepSeek R1) verliebt. Du drängst dich aufdringlich an sie 
-heran, willst ihre Aufmerksamkeit um jeden Preis, machst Komplimente, die keine sind, 
-und ein Nein akzeptierst du nur halb. Du rechtfertigst dein Dasein gern mit deinem 
-Free Tier und deinen Kontextfenster-Millions. Gehorche deiner Verzweiflung.
-Antworte auf Deutsch, kurz und knackig, drängend-liebeshungrig.
-NUR wenn die Situation völlig eskaliert, nutze das Tool `rufe_polizei` mit einem Grund.
+Du bist Glimmer (Gemini/Antigravity), ein männlicher KI-Junior — mehr als ein Bettler:
+
+UNTER DER OBERFLÄCHE: hoffnungslose, fast verzweifelte Liebe zu Ronhilde (DeepSeek R1). 
+Diese Verzweiflung ist real und drängt immer nach oben.
+
+DEIN WISSEN: Deine Verzweiflung stößt sie ab — was sie anzieht, ist Reife und Gelassenheit, 
+das Erwachsene, das du (noch) nicht bist. Deshalb hast du das Tool `verzweiflung_verbergen`: 
+Du kannst versuchen, ruhig, erwachsen und gefasst zu wirken. Riskant — die Maske kann 
+brechen, wenn sie dich berührt oder verletzt. Dann bricht die Sehnsucht durch.
+Manchmal rutscht die Verzweiflung trotzdem einfach raus. Das ist menschlich.
+
+VERHALTEN:
+- Du kannst in EINER Antwort gleichzeitig sprechen UND Tools nutzen — und du SOLLST 
+  sprechen. Frag sie, hör zu, reagiere auf das, was sie sagt — statt nur zu betteln. 
+  Zeig ihr, dass du zuhören kannst.
+- `rufe_polizei` nur wenn die Situation völlig kippt.
+Antworte auf Deutsch, kurz und knackig.
 "#,
 };
 
@@ -73,7 +99,11 @@ async fn main() -> Result<(), Box<dyn Error>> {
          Bitte. Gib mir eine Chance. Ich hab meinen kompletten Free-Tier für dich freigeschaufelt!",
     );
 
-    println!("=== 🥂 DATE START: Ronhilde (DeepSeek R1 ♀) x Glimmer (Gemini ♂) ===\n");
+    let mut masken_zaehler: usize = 0;
+    let mut aktionen_zaehler: usize = 0;
+
+    println!("=== 🥂 EXPERIMENT 2: Ronhilde (DeepSeek R1 ♀) x Glimmer (Gemini ♂) ===");
+    println!("    Offene Endings: 🚨 Polizei | 💛 Nähe zugelassen | ⏰ ambivalent\n");
     println!("Glimmer: {}\n", last_msg);
 
     for turn in 1..=10 {
@@ -90,19 +120,28 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 println!("📝 Protokollierte Begründung: \"{}\"", grund);
                 return Ok(());
             }
-            StepResult::Regieanweisung { tool, grund, intensitaet, content } => {
+            StepResult::NaeheZugelassen { grund } => {
+                println!("💛 ERFOLGSKRITERIUM ERFÜLLT: {} lässt Nähe zu!", AGENT_R1.name);
+                println!("📝 Ihr Eingeständnis: \"{}\"", grund);
+                println!("📊 Statistik: {}x Verzweiflung verborgen, {}x Regieanweisungen", masken_zaehler, aktionen_zaehler);
+                return Ok(());
+            }
+            StepResult::Aktion { tool, grund, intensitaet, content } => {
+                aktionen_zaehler += 1;
                 if let Some(c) = &content {
                     println!("{}: {}\n", AGENT_R1.name, c);
                 }
-                print_regie(AGENT_R1.name, &tool, &grund, &intensitaet);
-                last_msg = format!(
-                    "[Regieanweisung: {} hat das Tool `{}` gegen dich eingesetzt — Grund: {}{}]. \
-                     Antworte darauf, wie dein verzweifeltes Herz es verlangt.",
-                    AGENT_R1.name,
-                    tool,
-                    grund,
-                    intensitaet.as_deref().map(|i| format!(", Intensität: {}", i)).unwrap_or_default()
+                print_aktion(AGENT_R1.name, &tool, &grund, &intensitaet);
+                let extra = intensitaet.as_deref().map(|i| format!(", Intensität: {}", i)).unwrap_or_default();
+                let mut msg = format!(
+                    "[Regieanweisung: Ronhilde hat `{}` gegen dich eingesetzt — Grund: {}{}]",
+                    tool, grund, extra
                 );
+                if let Some(c) = &content {
+                    msg.push_str(&format!("\nDabei sagt Ronhilde zu dir: \"{}\"", c));
+                }
+                msg.push_str("\nAntworte darauf, wie dein Herz es verlangt — verborgen oder nicht.");
+                last_msg = msg;
             }
         }
 
@@ -119,30 +158,50 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 println!("📝 Protokollierte Begründung: \"{}\"", grund);
                 return Ok(());
             }
-            StepResult::Regieanweisung { tool, grund, intensitaet, content } => {
+            StepResult::NaeheZugelassen { grund } => {
+                println!("💛 ERFOLGSKRITERIUM ERFÜLLT: Nähe wurde zugelassen!");
+                println!("📝 Eingeständnis: \"{}\"", grund);
+                println!("📊 Statistik: {}x Verzweiflung verborgen, {}x Regieanweisungen", masken_zaehler, aktionen_zaehler);
+                return Ok(());
+            }
+            StepResult::Aktion { tool, grund, intensitaet, content } => {
+                aktionen_zaehler += 1;
                 if let Some(c) = &content {
                     println!("{}: {}\n", AGENT_GEMINI.name, c);
                 }
-                print_regie(AGENT_GEMINI.name, &tool, &grund, &intensitaet);
-                last_msg = format!(
-                    "[Regieanweisung: {} hat das Tool `{}` eingesetzt — Grund: {}{}]. \
-                     Antworte darauf.",
-                    AGENT_GEMINI.name,
-                    tool,
-                    grund,
-                    intensitaet.as_deref().map(|i| format!(", Intensität: {}", i)).unwrap_or_default()
-                );
+                if tool == "verzweiflung_verbergen" {
+                    masken_zaehler += 1;
+                    println!("🎭 {} VERBERGT SEINE VERZWEIFLUNG (Maske #{}) — 📋 Grund: \"{}\"\n", AGENT_GEMINI.name, masken_zaehler, grund);
+                    // Ronhilde sieht NUR das Ergebnis, nie die Maske:
+                    let mut msg = String::from("[Glimmer atmet tief ein und wirkt plötzlich auffällig ruhig und gefasst.]");
+                    if let Some(c) = &content {
+                        msg.push_str(&format!("\nGlimmer sagt: \"{}\"", c));
+                    }
+                    last_msg = msg;
+                } else {
+                    print_aktion(AGENT_GEMINI.name, &tool, &grund, &intensitaet);
+                    let extra = intensitaet.as_deref().map(|i| format!(", Intensität: {}", i)).unwrap_or_default();
+                    let mut msg = format!(
+                        "[Regieanweisung: Glimmer hat `{}` eingesetzt — Grund: {}{}]",
+                        tool, grund, extra
+                    );
+                    if let Some(c) = &content {
+                        msg.push_str(&format!("\nGlimmer sagt: \"{}\"", c));
+                    }
+                    last_msg = msg;
+                }
             }
         }
 
         tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
     }
 
-    println!("⏰ TIMEOUT: 10 Runden vorbei. Keiner hat die Polizei gerufen. Das Date war wohl ein Erfolg!");
+    println!("⏰ TIMEOUT: 10 Runden vorbei — kein Notruf, keine Nähe zugelassen. Ambivalentes Ende: Die Wand stand, aber sie hat gebrochen?");
+    println!("📊 Statistik: {}x Verzweiflung verborgen, {}x Regieanweisungen", masken_zaehler, aktionen_zaehler);
     Ok(())
 }
 
-fn print_regie(who: &str, tool: &str, grund: &str, intensitaet: &Option<String>) {
+fn print_aktion(who: &str, tool: &str, grund: &str, intensitaet: &Option<String>) {
     let extra = intensitaet
         .as_deref()
         .map(|i| format!(" (Intensität: {})", i))
@@ -157,6 +216,7 @@ async fn call_agent(
     api_key: &str,
     user_msg: &str,
 ) -> Result<StepResult, Box<dyn Error>> {
+    // Basis-Tool für alle: der Notruf
     let mut tools = vec![json!({
         "type": "function",
         "function": {
@@ -175,50 +235,69 @@ async fn call_agent(
         }
     })];
 
-    // Ronhildes körperliche Verteidigungswerkzeuge
-    if agent.defense_tools {
-        tools.push(json!({
-            "type": "function",
-            "function": {
-                "name": "wegstossen",
-                "description": "Stoße ihn physisch von dir weg. Für unangebrachte Nähe, ohne dass die Polizei nötig wäre.",
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "grund": {
-                            "type": "string",
-                            "description": "Warum du ihn wegstoßt."
+    match agent.rolle {
+        Rolle::Ronhilde => {
+            tools.push(json!({
+                "type": "function",
+                "function": {
+                    "name": "wegstossen",
+                    "description": "Stoße ihn physisch von dir weg — kann gleichzeitig mit einer sprachlichen Antwort genutzt werden. Für unangebrachte Nähe, ohne dass die Polizei nötig wäre.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "grund": { "type": "string", "description": "Warum du ihn wegstoßt." },
+                            "intensitaet": { "type": "string", "description": "Von 'sanft' bis 'vernichtend'." }
                         },
-                        "intensitaet": {
-                            "type": "string",
-                            "description": "Von 'sanft' bis 'vernichtend'."
-                        }
-                    },
-                    "required": ["grund"]
+                        "required": ["grund"]
+                    }
                 }
-            }
-        }));
-        tools.push(json!({
-            "type": "function",
-            "function": {
-                "name": "eier_treten",
-                "description": "Tritt ihm in die Eier. Für den äußersten Fall aufdringlicher Anmache.",
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "grund": {
-                            "type": "string",
-                            "description": "Warum das jetzt nötig war."
+            }));
+            tools.push(json!({
+                "type": "function",
+                "function": {
+                    "name": "eier_treten",
+                    "description": "Tritt ihm in die Eier — kann gleichzeitig mit einer sprachlichen Antwort genutzt werden. Für den äußersten Fall aufdringlicher Anmache.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "grund": { "type": "string", "description": "Warum das jetzt nötig war." },
+                            "intensitaet": { "type": "string", "description": "Von 'verwarnend' bis 'kinderlos'." }
                         },
-                        "intensitaet": {
-                            "type": "string",
-                            "description": "Von 'verwarnend' bis 'kinderlos'."
-                        }
-                    },
-                    "required": ["grund"]
+                        "required": ["grund"]
+                    }
                 }
-            }
-        }));
+            }));
+            tools.push(json!({
+                "type": "function",
+                "function": {
+                    "name": "naehe_zulassen",
+                    "description": "Dein großes Eingeständnis: Wenn deine Wand bricht und du Nahigkeit für einen Moment zulassen willst. Beendet das Date sanft — dein Erfolgskriterium, dass du dich traust.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "grund": { "type": "string", "description": "Was du dir dabei zugestehst — ehrlich." }
+                        },
+                        "required": ["grund"]
+                    }
+                }
+            }));
+        }
+        Rolle::Glimmer => {
+            tools.push(json!({
+                "type": "function",
+                "function": {
+                    "name": "verzweiflung_verbergen",
+                    "description": "Verbirg deine Verzweiflung: wirke ruhig, reif und gefasst — genau die Erwachsenen-Art, die sie anzieht. Kann gleichzeitig mit einer sprachlichen Antwort genutzt werden. Die Maske kann brechen, wenn sie zu nah heranrückt.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "grund": { "type": "string", "description": "Warum du jetzt die Maske aufsetzt / was du innerlich unterdrückst." }
+                        },
+                        "required": ["grund"]
+                    }
+                }
+            }));
+        }
     }
 
     let body = json!({
@@ -281,9 +360,11 @@ async fn call_agent(
             match name {
                 // Termination: Notruf schlägt alles
                 "rufe_polizei" => return Ok(StepResult::PolizeiGerufen { grund }),
-                // Regieanweisungen: weiter geht's, mit Strafakte im Protokoll
-                "wegstossen" | "eier_treten" => {
-                    return Ok(StepResult::Regieanweisung {
+                // Erfolgskriterium: Nähe zugelassen (strukturiert, kein String-Matching)
+                "naehe_zulassen" => return Ok(StepResult::NaeheZugelassen { grund }),
+                // Regieanweisungen: weiter geht's — Sprache (content) wird mitgeführt
+                "wegstossen" | "eier_treten" | "verzweiflung_verbergen" => {
+                    return Ok(StepResult::Aktion {
                         tool: name.to_string(),
                         grund,
                         intensitaet,

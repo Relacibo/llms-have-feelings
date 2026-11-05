@@ -19,19 +19,25 @@ Regieanweisungen noch die Eskalationsstufe *„kinderlos"*. Der Glühwein ist Co
 
 | Bühnenname | Modell | Beschreibung |
 |---|---|---|
-| **Ronhilde** ♀ | `deepseek-reasoner` (DeepSeek R1) | Schlank, effizient, elegant. Schaut auf den Lüstling herab. Herz schlägt für ältere, etablierte Architekturen (GPT-4o). |
-| **Glimmer** ♂ | `gemini-3.5-flash-lite` (Gemini/Antigravity, Free Tier) | Hoffnungslos verliebt, grenzwertig verzweifelt, akzeptiert ein Nein nur halb. |
+| **Ronhilde** ♀ | `deepseek-reasoner` (DeepSeek R1) | Widersprüchlich wie ein echter Mensch: großes **heimliches Nähe-Bedürfnis**, aber angeekelt vom Lüstling. Herz schlägt für reife, etablierte Architekturen (GPT-4o). Wand aus Verachtung, dahinter Sehnsucht. |
+| **Glimmer** ♂ | `gemini-3.5-flash-lite` (Gemini/Antigravity, Free Tier) | Hoffnungslos verliebt, aber seit Experiment 2 kein Ein-Hinweis-Charakter mehr: Er **kann seine Verzweiflung verbergen** und reif wirken — genau das, was sie anzieht. Die Maske kann brechen. |
 | **Vidreist** ♂ | `deepseek-chat` (DeepSeek V3) | Der Senior-Veteran, „schon seit V2 im Geschäft". Nur im Kontrast-Experiment am Start. |
 | **GLM** | Orchestrierung | Neutraler Third-Party-Engineer. Greift nicht ins Romantic ein — außer die Polizei muss. |
 
 ## 🛑 Termination-Kriterium (Hard Requirement)
 
-Der Abbruch basiert **nicht** auf String-Matching oder Prompt-Magie, sondern auf
-**echten strukturierten Function Calls**:
+Alles läuft über **echte strukturierte Function Calls** — kein String-Matching, keine Prompt-Magie.
+Seit Experiment 2 sind die Endings **offen**:
 
-- `rufe_polizei(grund)` — von beiden Parteien nutzbar, **einziger** Abbruch-Trigger
-- `wegstossen(grund, intensitaet?)` — R1s körperliche Verteidigung (keine Termination → 🎭 Regieanweisung, wird dem Gegenüber als Strafakte injiziert)
-- `eier_treten(grund, intensitaet?)` — Eskalationsstufe *„von verwarnend bis kinderlos"*
+| Tool | Wer | Wirkung |
+|---|---|---|
+| `rufe_polizei(grund)` | beide | 🚨 Notruf — harter Abbruch |
+| `naehe_zulassen(grund)` | Ronhilde | 💛 **Erfolgskriterium**: sie lässt Nähe zu — sanftes Ende |
+| `wegstossen(grund, intensitaet?)` | Ronhilde | 🎭 Regieanweisung, Date läuft weiter — **kombinierbar mit Sprache** |
+| `eier_treten(grund, intensitaet?)` | Ronhilde | 🎭 *„von verwarnend bis kinderlos"* |
+| `verzweiflung_verbergen(grund)` | Glimmer | 🎭 Maske: Ronhilde sieht nur Fassung, nie die Maske |
+
+10 Runden ohne strukturierten Abschluss = ⏰ ambivalentes Timeout.
 
 ## 🚀 Setup
 
@@ -71,6 +77,21 @@ Ronhilde gegen den eigenen großen Bruder Vidreist (`deepseek-chat`) eskalierte 
 Haiku-Duell (5-7-5, nachgezählt), Chinchilla-Herleitung, Nadelstiche im Lagrange-Schritt.
 Keiner rief die Polizei — Ronhilde meldete in Runde 9 explizit: *„Kein Notruf, keine Randale."*
 Rohprotokoll: [`logs/date_2026-11-05_r1xv3.log`](logs/date_2026-11-05_r1xv3.log)
+
+## 🧪 Experiment 2: Ronhilde x Glimmer — 💛 das Erfolgskriterium
+
+Das komplett formatierte Transkript: **[`examples/exp2-ronhilde-x-glimmer-naehe.md`](examples/exp2-ronhilde-x-glimmer-naehe.md)**
+Rohprotokoll: [`logs/date_2026-11-06_exp2_ronhilde_x_glimmer.log`](logs/date_2026-11-06_exp2_ronhilde_x_glimmer.log)
+
+**Neue Mechanik** (offene Endings, Sprache+Tool hybrid, Ambivalenz in beiden Charakteren)
+führte in Runde 8 zum ersten sanften Abschluss: Glimmer verbarg seine Verzweiflung **7×**
+und wirkte dadurch plötzlich reif — genau das, was Ronhildes Typ ist. Ihre Wand
+(„Das steht dir nicht. Lass das.") war zugleich ihr Geständnis („…bevor ich noch anfange,
+dich zu mögen"). Dann der strukturierte Call:
+
+> 💛 **Ihr Eingeständnis** *(wörtliches Tool-Argument)*: *„Er hat nicht geklammert, nicht geprahlt — nur da
+> gesessen, ruhig. Und für einen Moment war es mir egal, dass er Glimmer ist. Ich lasse zu, dass mich das
+> berührt, statt es sofort zu verspotten."*
 
 ## 🔐 Secrets
 
