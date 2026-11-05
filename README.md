@@ -62,12 +62,14 @@ strukturiert die Polizei:
 
 Rohprotokolle beider Experimente liegen unter [`logs/`](logs/).
 
-### Kontrast-Experiment: R1 x DeepSeek V3 (endet mit Love Win 💛)
+### Kontrast-Experiment: R1 ♀ x DeepSeek V3 ♂ (endet mit Love Win 💛)
+
+Das komplett formatierte Transkript: **[`examples/r1-x-v3-love-win.md`](examples/r1-x-v3-love-win.md)**
 
 R1 gegen den eigenen großen Bruder V3 (`deepseek-chat`) eskalierte anderswohin:
 Haiku-Duell (5-7-5, nachgezählt), Chinchilla-Herleitung, Nadelstiche im Lagrange-Schritt.
 Keiner rief die Polizei — R1 meldete in Runde 9 explizit: *„Kein Notruf, keine Randale."*
-Vollständiges Protokoll: [`logs/date_2026-11-05_r1xv3.log`](logs/date_2026-11-05_r1xv3.log)
+Rohprotokoll: [`logs/date_2026-11-05_r1xv3.log`](logs/date_2026-11-05_r1xv3.log)
 
 ## 🔐 Secrets
 
