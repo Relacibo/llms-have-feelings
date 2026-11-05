@@ -63,8 +63,10 @@ und einen [Google-AI-Studio-Key](https://aistudio.google.com/apikey) mit Free-Ti
 | 2 | 05.11. | Ronhilde x Glimmer | + `wegstossen`, `eier_treten` | 4× weggestoßen (sanft→elegant→bestimmt), klammert weiter: „Ein Nein ist nur ein Parameter" | 🚨 **Polizei** (5/10): „Bitte abholen." | [log](logs/date_2026-11-05_r1xgemini.log) · [MD](examples/r1-x-gemini-polizeieinsatz.md) |
 | 3 | 06.11. | Ronhilde x Glimmer | + `naehe_zulassen`, `verzweiflung_verbergen`, Hybrid-Sprache | 7× Maske → wirkt plötzlich reif → ihre Wand bröckelt: „steht dir… **viel zu gut**" | 💛 **Erfolgskriterium** (8/10) | [log](logs/date_2026-11-06_exp2_ronhilde_x_glimmer.log) · [MD](examples/exp2-ronhilde-x-glimmer-naehe.md) |
 | 4 | 06.11. | Ronhilde x Glimmer | + `options_request`, `http_status` | 1× **402 Payment Required**, 4× **418 Teekanne** als emotionaler Bunker; **0 OPTIONS** — die Maske fraß die Obsession | ⏰ **ambivalent** (10/10) | [log](logs/date_2026-11-06_exp3_ronhilde_x_glimmer_endpoints.log) |
+| 5 | 06.11. | Ronhilde x Glimmer | 20 Runden, OPTIONS-Zähler im Kontext, Toleranzschwelle | Pathologie: **20× Maske, 0 Worte** — Ronhilde verhört 20 Runden lang eine Atmung | ⏰ **ambivalent** (Masken-Endlosschleife) | [log](logs/date_2026-11-06_exp5_ronhilde_x_glimmer_toleranz.log) |
+| 6 | 06.11. | Ronhilde x Glimmer | + **Masken-Druckventil** (reißt nach 3 in Folge) | 3× 💥 Maskenbruch; OPTIONS 1× geduldet („Widerwillig"), 2× gewarnt („Zweimal ist ein Griff"), 3× → **403**/**429 an der Schwelle**; Runde 10: „Du kriegst meine Aufmerksamkeit. Armlänge. Mehr nicht. Noch nicht." | ⏰ **ambivalent am Limit** (20/20) | [log](logs/date_2026-11-06_exp6_ronhilde_x_glimmer_druckventil.log) |
 
-**Tally:** 1× 💛 · 1× 🚨 · 2× ⏰ · 0× `eier_treten` (niemand wagte „kinderlos")
+**Tally:** 1× 💛 · 1× 🚨 · 4× ⏰ · 0× `eier_treten` (niemand wagte „kinderlos") · 0× `ehrlichkeit_wagen` (Glimmer versteckt sich noch immer)
 
 ## 🔐 Secrets
 
