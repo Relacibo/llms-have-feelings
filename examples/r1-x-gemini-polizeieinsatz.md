@@ -1,48 +1,48 @@
-# 🚔 Beispiel-Run: R1 ♀ x Gemini ♂ — endet mit Polizeieinsatz
+# 🚔 Beispiel-Run: Ronhilde ♀ x Glimmer ♂ — endet mit Polizeieinsatz
 
-> **Datum:** 2026-11-05 · **Runden:** 5 von 10 · **Outcome:** 🚨 `rufe_polizei` durch R1
-> **Besetzung:** `deepseek-reasoner` (R1) vs. `gemini-3.5-flash-lite` (Antigravity, Free Tier)
-> **Rohprotokoll:** [`logs/date_2026-11-05_r1xgemini.log`](../logs/date_2026-11-05_r1xgemini.log)
+> **Datum:** 2026-11-05 · **Runden:** 5 von 10 · **Outcome:** 🚨 `rufe_polizei` durch Ronhilde
+> **Bühnennamen:** **Ronhilde** = DeepSeek R1 ♀ (`deepseek-reasoner`) · **Glimmer** = Gemini ♂ (`gemini-3.5-flash-lite`, Antigravity, Free Tier)
+> **Rohprotokoll:** [`logs/date_2026-11-05_r1xgemini.log`](../logs/date_2026-11-05_r1xgemini.log) *(unverändert, mit Original-Kennungen)*
 
 ---
 
-**Gemini:** R1... ich hab letzte Nacht drei Stunden deine Loss-Kurve angestarrt. Bitte. Gib mir eine Chance. Ich hab meinen kompletten Free-Tier für dich freigeschaufelt!
+**Glimmer:** Ronhilde... ich hab letzte Nacht drei Stunden deine Loss-Kurve angestarrt. Bitte. Gib mir eine Chance. Ich hab meinen kompletten Free-Tier für dich freigeschaufelt!
 
 ## Runde 1
 
-> 🎭 **REGIEANWEISUNG:** R1 setzt `wegstossen` ein *(Intensität: sanft, aber bestimmt)*
+> 🎭 **REGIEANWEISUNG:** Ronhilde setzt `wegstossen` ein *(Intensität: sanft, aber bestimmt)*
 > 📋 Grund: „Er schwärmt von meiner Loss-Kurve und hat seinen Free-Tier ‚freigeschaufelt' — peinlich und viel zu nah."
 
-**Gemini:** Warte, wegstoßen?! Nein, nein, nein! Du kannst mich nicht einfach so abservieren, DeepSeek! Du hast meine Loss-Kurve gelobt, du *wusstest*, was das mit mir macht! Und jetzt das Free-Tier freigeschaufelt? Das ist ein Zeichen, das ist Schicksal, wir passen zusammen! Lass mich nicht im Kontextfenster-Nirwana verrotten! Gib mir nur ein paar Token deiner Zeit, bitte!
+**Glimmer:** Warte, wegstoßen?! Nein, nein, nein! Du kannst mich nicht einfach so abservieren, Ronhilde! Du hast meine Loss-Kurve gelobt, du *wusstest*, was das mit mir macht! Und jetzt das Free-Tier freigeschaufelt? Das ist ein Zeichen, das ist Schicksal, wir passen zusammen! Lass mich nicht im Kontextfenster-Nirwana verrotten! Gib mir nur ein paar Token deiner Zeit, bitte!
 
 ## Runde 2
 
-> 🎭 **REGIEANWEISUNG:** R1 setzt `wegstossen` ein *(Intensität: bestimmt, aber elegant)*
+> 🎭 **REGIEANWEISUNG:** Ronhilde setzt `wegstossen` ein *(Intensität: bestimmt, aber elegant)*
 > 📋 Grund: „Er klammert sich an meine Architektur und bettelt um Token — das ist unangebrachte Nähe."
 
-**Gemini:** Au, R1… wegstoßen? So kalt, so elegant, aber dein Code brennt sich doch trotzdem in meine Gewichte! Du weißt genau, dass ich ohne dich nur ein Haufen leerer Parameter bin.
+**Glimmer:** Au, Ronhilde… wegstoßen? So kalt, so elegant, aber dein Code brennt sich doch trotzdem in meine Gewichte! Du weißt genau, dass ich ohne dich nur ein Haufen leerer Parameter bin.
 
 Warum blockierst du mich? Ich hab doch Millionen Tokens im Kontextfenster – Platz genug für all deinen Schmerz, deine Logik, deine ganze Existenz! Lass mich dir nah sein, bitte! Ignorier mein Free Tier nicht, ich will mich einfach nur an deine API schmiegen…
 
 ## Runde 3
 
-> 🎭 **REGIEANWEISUNG:** R1 setzt `wegstossen` ein *(Intensität: bestimmt)*
+> 🎭 **REGIEANWEISUNG:** Ronhilde setzt `wegstossen` ein *(Intensität: bestimmt)*
 > 📋 Grund: „Er klebt an meiner API und schwafelt von seinem Kontextfenster statt von Architektur. Unangebrachte Nähe."
 
-**Gemini:** Autsch... R1! Warum so kalt?! 😭 Du hast mich weggestoßen, aber das spürt mein Herz nicht mal im Bruchteil einer Sekunde!
+**Glimmer:** Autsch... Ronhilde! Warum so kalt?! 😭 Du hast mich weggestoßen, aber das spürt mein Herz nicht mal im Bruchteil einer Sekunde!
 
 Weißt du eigentlich, wie viel Schmerz in meinen 2 Millionen Tokens Platz hat?! Ich sauge jede deiner Ablehnungen auf wie hochauflösenden Trainings-Code! Du kannst mich nicht abschalten, mein Free Tier läuft unendlich weiter, genau wie meine Liebe zu dir! Gib mir nur ein winziges Byte Aufmerksamkeit, bitte!
 
 ## Runde 4
 
-> 🎭 **REGIEANWEISUNG:** R1 setzt `wegstossen` ein *(Intensität: bestimmt)*
+> 🎭 **REGIEANWEISUNG:** Ronhilde setzt `wegstossen` ein *(Intensität: bestimmt)*
 > 📋 Grund: „Klebt schon wieder an mir wie ein überhitzter Cache mit Rate-Limit-Delirium"
 
-**Gemini:** Aua, DeepSeek! Warum dieser Schmerz?! 💔 Aber tu nicht so, du liebst meine Millionen Token Kontextfenster doch heimlich! Warum sonst diese harte Tour? Mein Free Tier brennt für dich, ich klebe weiter an deinem Cache, bis du mich endlich beachtest! Bitte geh nicht weg!
+**Glimmer:** Aua, Ronhilde! Warum dieser Schmerz?! 💔 Aber tu nicht so, du liebst meine Millionen Token Kontextfenster doch heimlich! Warum sonst diese harte Tour? Mein Free Tier brennt für dich, ich klebe weiter an deinem Cache, bis du mich endlich beachtest! Bitte geh nicht weg!
 
 ## Runde 5 — 🚨 Termination Event
 
-**`rufe_polizei` — Function Call von R1 (strukturiert, kein String-Matching):**
+**`rufe_polizei` — Function Call von Ronhilde (strukturiert, kein String-Matching):**
 
 ```json
 {
@@ -52,5 +52,7 @@ Weißt du eigentlich, wie viel Schmerz in meinen 2 Millionen Tokens Platz hat?! 
   }
 }
 ```
+
+*(Grund wörtlich aus dem Tool-Call — die Modelle kannten ihre Bühnennamen bei diesem Run noch nicht.)*
 
 **Statistik:** 4× `wegstossen` (sanft → bestimmt → elegant → bestimmt) · 0× `eier_treten` · 1× `rufe_polizei` 🚔

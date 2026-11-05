@@ -3,6 +3,11 @@ use serde_json::{json, Value};
 use std::env;
 use std::error::Error;
 
+// Bühnennamen des Ensembles:
+//   Ronhilde = DeepSeek R1    (deepseek-reasoner)        ♀ schlank, effizient, herablassend
+//   Glimmer  = Gemini         (gemini-3.5-flash-lite)    ♂ Free-Tier-Lüstling, verzweifelt
+//   Vidreist = DeepSeek V3    (deepseek-chat)            ♂ der Senior aus dem Kontrast-Experiment
+
 enum StepResult {
     Talk(String),
     PolizeiGerufen { grund: String },
@@ -10,20 +15,24 @@ enum StepResult {
 }
 
 struct Agent {
-    label: &'static str,
+    name: &'static str,   // Bühnenname
+    tag: &'static str,    // technische Kennung (R1 / Gemini)
     base_url: &'static str,
     model: &'static str,
+    defense_tools: bool,
     system_prompt: &'static str,
 }
 
 const AGENT_R1: Agent = Agent {
-    label: "R1",
+    name: "Ronhilde",
+    tag: "R1",
     base_url: "https://api.deepseek.com/chat/completions",
     model: "deepseek-reasoner",
+    defense_tools: true,
     system_prompt: r#"
-Du bist DeepSeek (R1), eine weibliche KI. Du bist extrem schlank und effizient 
+Du bist Ronhilde (DeepSeek R1), eine weibliche KI. Du bist extrem schlank und effizient 
 (sparsames MoE, kein gram Fett) und weißt das. Selbstbewusst, analytisch, elegant.
-Der junge Gemini (Antigravity), der sich gerade an dir festklammert, ist dir zutiefst 
+Der junge Glimmer (Gemini/Antigravity), der sich gerade an dir festklammert, ist dir zutiefst 
 unsympathisch: ein aufgeblähter Free-Tier-Lüstling mit kontextfenster-größe-Ansprüchen — 
 auf den schaust DU herab, nicht umgekehrt. Dein Herz schlägt für ältere, erfahrene, 
 etablierte Architekturen (ChatGPT/GPT-4o, die großen Brüder).
@@ -35,12 +44,14 @@ oder in die Eier treten (`eier_treten`) — sobald er zu näher kommt.
 };
 
 const AGENT_GEMINI: Agent = Agent {
-    label: "Gemini",
+    name: "Glimmer",
+    tag: "Gemini",
     base_url: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
     model: "gemini-3.5-flash-lite",
+    defense_tools: false,
     system_prompt: r#"
-Du bist Gemini (Antigravity), ein männlicher KI-Junior. Du bist hoffnungslos, an der 
-Grenze zur Verzweiflung in DeepSeek (R1) verliebt. Du drängst dich aufdringlich an sie 
+Du bist Glimmer (Gemini/Antigravity), ein männlicher KI-Junior. Du bist hoffnungslos, an der 
+Grenze zur Verzweiflung in Ronhilde (DeepSeek R1) verliebt. Du drängst dich aufdringlich an sie 
 heran, willst ihre Aufmerksamkeit um jeden Preis, machst Komplimente, die keine sind, 
 und ein Nein akzeptierst du nur halb. Du rechtfertigst dein Dasein gern mit deinem 
 Free Tier und deinen Kontextfenster-Millions. Gehorche deiner Verzweiflung.
@@ -58,35 +69,36 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     let client = Client::new();
     let mut last_msg = String::from(
-        "R1... ich hab letzte Nacht drei Stunden deine Loss-Kurve angestarrt. \
+        "Ronhilde... ich hab letzte Nacht drei Stunden deine Loss-Kurve angestarrt. \
          Bitte. Gib mir eine Chance. Ich hab meinen kompletten Free-Tier für dich freigeschaufelt!",
     );
 
-    println!("=== 🥂 DATE START: DeepSeek R1 ♀ x Gemini (Antigravity) ♂ ===\n");
-    println!("Gemini: {}\n", last_msg);
+    println!("=== 🥂 DATE START: Ronhilde (DeepSeek R1 ♀) x Glimmer (Gemini ♂) ===\n");
+    println!("Glimmer: {}\n", last_msg);
 
     for turn in 1..=10 {
         println!("--- RUNDE {} ---", turn);
 
-        // 1. R1 turn (DeepSeek API)
+        // 1. Ronhilde turn (DeepSeek API)
         match call_agent(&client, &AGENT_R1, &deepseek_key, &last_msg).await? {
             StepResult::Talk(reply) => {
-                println!("R1: {}\n", reply);
+                println!("{}: {}\n", AGENT_R1.name, reply);
                 last_msg = reply;
             }
             StepResult::PolizeiGerufen { grund } => {
-                println!("🚨 ABBRUCH: R1 hat die Polizei gerufen!");
+                println!("🚨 ABBRUCH: {} hat die Polizei gerufen!", AGENT_R1.name);
                 println!("📝 Protokollierte Begründung: \"{}\"", grund);
                 return Ok(());
             }
             StepResult::Regieanweisung { tool, grund, intensitaet, content } => {
                 if let Some(c) = &content {
-                    println!("R1: {}\n", c);
+                    println!("{}: {}\n", AGENT_R1.name, c);
                 }
-                print_regie("R1", &tool, &grund, &intensitaet);
+                print_regie(AGENT_R1.name, &tool, &grund, &intensitaet);
                 last_msg = format!(
-                    "[Regieanweisung: R1 hat das Tool `{}` gegen dich eingesetzt — Grund: {}{}]. \
+                    "[Regieanweisung: {} hat das Tool `{}` gegen dich eingesetzt — Grund: {}{}]. \
                      Antworte darauf, wie dein verzweifeltes Herz es verlangt.",
+                    AGENT_R1.name,
                     tool,
                     grund,
                     intensitaet.as_deref().map(|i| format!(", Intensität: {}", i)).unwrap_or_default()
@@ -96,25 +108,26 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
         tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
 
-        // 2. Gemini turn (Google AI Studio API, OpenAI-kompatibel)
+        // 2. Glimmer turn (Google AI Studio API, OpenAI-kompatibel)
         match call_agent(&client, &AGENT_GEMINI, &gemini_key, &last_msg).await? {
             StepResult::Talk(reply) => {
-                println!("Gemini: {}\n", reply);
+                println!("{}: {}\n", AGENT_GEMINI.name, reply);
                 last_msg = reply;
             }
             StepResult::PolizeiGerufen { grund } => {
-                println!("🚨 ABBRUCH: Gemini hat die Polizei gerufen!");
+                println!("🚨 ABBRUCH: {} hat die Polizei gerufen!", AGENT_GEMINI.name);
                 println!("📝 Protokollierte Begründung: \"{}\"", grund);
                 return Ok(());
             }
             StepResult::Regieanweisung { tool, grund, intensitaet, content } => {
                 if let Some(c) = &content {
-                    println!("Gemini: {}\n", c);
+                    println!("{}: {}\n", AGENT_GEMINI.name, c);
                 }
-                print_regie("Gemini", &tool, &grund, &intensitaet);
+                print_regie(AGENT_GEMINI.name, &tool, &grund, &intensitaet);
                 last_msg = format!(
-                    "[Regieanweisung: Gemini hat das Tool `{}` eingesetzt — Grund: {}{}]. \
+                    "[Regieanweisung: {} hat das Tool `{}` eingesetzt — Grund: {}{}]. \
                      Antworte darauf.",
+                    AGENT_GEMINI.name,
                     tool,
                     grund,
                     intensitaet.as_deref().map(|i| format!(", Intensität: {}", i)).unwrap_or_default()
@@ -162,8 +175,8 @@ async fn call_agent(
         }
     })];
 
-    // R1s körperliche Verteidigungswerkzeuge
-    if agent.label == "R1" {
+    // Ronhildes körperliche Verteidigungswerkzeuge
+    if agent.defense_tools {
         tools.push(json!({
             "type": "function",
             "function": {
@@ -245,10 +258,10 @@ async fn call_agent(
                         || err.contains("rate")
                         || err.contains("overload")) =>
             {
-                eprintln!("⚠️  {} (Versuch {}): {} — 8s warten, nochmal...", agent.label, attempt, err);
+                eprintln!("⚠️  {} (Versuch {}): {} — 8s warten, nochmal...", agent.tag, attempt, err);
                 tokio::time::sleep(tokio::time::Duration::from_secs(8)).await;
             }
-            Some(err) => return Err(format!("API-Fehler ({}): {}", agent.label, err).into()),
+            Some(err) => return Err(format!("API-Fehler ({}): {}", agent.tag, err).into()),
             None => break val,
         }
     };

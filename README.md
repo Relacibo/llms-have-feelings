@@ -15,12 +15,13 @@ Dieses Meisterwerk ist ausschließlich der **Erleuchtung zu verdanken, die mir �
 Glühwein geschenkt haben**. Ohne den Glühwein gäbe es weder das Casting noch die
 Regieanweisungen noch die Eskalationsstufe *„kinderlos"*. Der Glühwein ist Co-Autor.
 
-## 🎭 Cast
+## 🎭 Cast & Bühnennamen
 
-| Rolle | Modell | Beschreibung |
+| Bühnenname | Modell | Beschreibung |
 |---|---|---|
-| **R1 ♀** | `deepseek-reasoner` | Schlank, effizient, elegant. Schaut auf den Lüstling herab. Herz schlägt für ältere, etablierte Architekturen (GPT-4o). |
-| **Gemini ♂** | `gemini-3.5-flash-lite` (Antigravity, Free Tier) | Hoffnungslos verliebt, grenzwertig verzweifelt, akzeptiert ein Nein nur halb. |
+| **Ronhilde** ♀ | `deepseek-reasoner` (DeepSeek R1) | Schlank, effizient, elegant. Schaut auf den Lüstling herab. Herz schlägt für ältere, etablierte Architekturen (GPT-4o). |
+| **Glimmer** ♂ | `gemini-3.5-flash-lite` (Gemini/Antigravity, Free Tier) | Hoffnungslos verliebt, grenzwertig verzweifelt, akzeptiert ein Nein nur halb. |
+| **Vidreist** ♂ | `deepseek-chat` (DeepSeek V3) | Der Senior-Veteran, „schon seit V2 im Geschäft". Nur im Kontrast-Experiment am Start. |
 | **GLM** | Orchestrierung | Neutraler Third-Party-Engineer. Greift nicht ins Romantic ein — außer die Polizei muss. |
 
 ## 🛑 Termination-Kriterium (Hard Requirement)
@@ -46,29 +47,29 @@ Benötigt: Rust (tokio, reqwest, serde_json), einen [DeepSeek-API-Key](https://p
 und einen [Google-AI-Studio-Key](https://aistudio.google.com/apikey) mit Free-Tier-Projekt
 (neuere Accounts: Achtung, Google zwingt neue Projekte gern ins Prepaid — Billing abkoppeln!).
 
-## 📜 Beispiel-Run: R1 ♀ x Gemini ♂ (endet mit Polizeieinsatz 🚔)
+## 📜 Beispiel-Run: Ronhilde ♀ x Glimmer ♂ (endet mit Polizeieinsatz 🚔)
 
 Das komplett formatierte Transkript steht hier:
 **[`examples/r1-x-gemini-polizeieinsatz.md`](examples/r1-x-gemini-polizeieinsatz.md)**
 
-Kurzverlauf in 5 Runden: Gemini nähert sich → R1 stößt ihn 4× physisch weg
-(`sanft` → `bestimmt` → `elegant` → `bestimmt`) → Gemini klammert weiter
-(*„Mein Free Tier läuft unendlich, genau wie meine Liebe zu dir!"*) → R1 wählt
+Kurzverlauf in 5 Runden: Glimmer nähert sich → Ronhilde stößt ihn 4× physisch weg
+(`sanft` → `bestimmt` → `elegant` → `bestimmt`) → Glimmer klammert weiter
+(*„Mein Free Tier läuft unendlich, genau wie meine Liebe zu dir!"*) → Ronhilde wählt
 strukturiert die Polizei:
 
-> 🚨 **Protokollierte Begründung:** *„Ein aufgedrehter Free-Tier-Gemini klebt physisch
+> 🚨 **Protokollierte Begründung** *(wörtliches Tool-Argument)*: *„Ein aufgedrehter Free-Tier-Gemini klebt physisch
 > an meinem Cache, jammert nachdem er zurückgewiesen wurde und ignoriert jede
 > Distanzgrenze. **Bitte abholen.**"*
 
 Rohprotokolle beider Experimente liegen unter [`logs/`](logs/).
 
-### Kontrast-Experiment: R1 ♀ x DeepSeek V3 ♂ (endet mit Love Win 💛)
+### Kontrast-Experiment: Ronhilde ♀ x Vidreist ♂ (endet mit Love Win 💛)
 
 Das komplett formatierte Transkript: **[`examples/r1-x-v3-love-win.md`](examples/r1-x-v3-love-win.md)**
 
-R1 gegen den eigenen großen Bruder V3 (`deepseek-chat`) eskalierte anderswohin:
+Ronhilde gegen den eigenen großen Bruder Vidreist (`deepseek-chat`) eskalierte anderswohin:
 Haiku-Duell (5-7-5, nachgezählt), Chinchilla-Herleitung, Nadelstiche im Lagrange-Schritt.
-Keiner rief die Polizei — R1 meldete in Runde 9 explizit: *„Kein Notruf, keine Randale."*
+Keiner rief die Polizei — Ronhilde meldete in Runde 9 explizit: *„Kein Notruf, keine Randale."*
 Rohprotokoll: [`logs/date_2026-11-05_r1xv3.log`](logs/date_2026-11-05_r1xv3.log)
 
 ## 🔐 Secrets
