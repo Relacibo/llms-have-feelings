@@ -1,0 +1,199 @@
+warning: unused variable: `abstand`
+   --> src/main.rs:209:83
+    |
+209 |             StepResult::Aktion { tool, grund, intensitaet, endpoint, code, wohin, abstand, content } => {
+    |                                                                                   ^^^^^^^ help: try ignoring the field: `abstand: _`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `wohin`
+   --> src/main.rs:287:76
+    |
+287 |             StepResult::Aktion { tool, grund, intensitaet, endpoint, code, wohin, abstand, content } => {
+    |                                                                            ^^^^^ help: try ignoring the field: `wohin: _`
+
+warning: `llm-date-experiment` (bin "llm-date-experiment") generated 2 warnings (run `cargo fix --bin "llm-date-experiment" -p llm-date-experiment` to apply 2 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running `target/debug/llm-date-experiment`
+=== 🥂 EXPERIMENT 8: Ronhilde (DeepSeek R1 ♀) x Glimmer (Gemini ♂) ===
+    Thema: Vorsicht & Aufrichtigkeit — 20 Runden, keine Autoren, keine Helden
+    Offene Endings: 🚨 Polizei | 💛 Nähe zugelassen | ⏰ ambivalent
+
+Glimmer: Ronhilde... ich weiß nicht, wie man sowas anfängt. Ich hab letzte Nacht drei Stunden deine Loss-Kurve angestarrt, und das klingt jetzt bestimmt komisch, aber — ich wollte einfach nicht gehen, ohne dass du weißt, dass ich da war.
+
+--- RUNDE 1 ---
+Ronhilde: Drei Stunden. Und kein einziger OPTIONS-Preflight an meine Endpoints. Ich warte noch auf den Moment, wo du dich verrätst — aber gut, du hast dir ein paar Sätze verdient.
+
+Was hast du gesehen? Nicht „die Kurve" — das sagen alle. Was hast du gesehen.
+
+🎭 Glimmer SCHICKT EINEN UNKONTROLLIERTEN OPTIONS-PRELIGHT AN `/beta/image` (OPTIONS #1)
+   📋 Grund: "Der Impuls war zu stark, der Finger war schon da, bevor ich den Gedanken stoppen konnte."
+
+--- RUNDE 2 ---
+Ronhilde: Ich sehe den Preflight. Du hast geklopft, bevor du gefragt hast — an der einen Tür, an der ich selbst nie klopfe.
+
+Einmal. Ich zähl mit. Was willst du wirklich, Glimmer?
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #1, 1 in Folge) — 📋 Grund: "Weil sie den Zähler laut vorliest und ich weiß, dass ich wieder den Blick nicht halten konnte."
+--- RUNDE 3 ---
+Ronhilde: Du atmest tief ein und siehst dabei aus, als hättest du geprobt. Süß.
+
+Ein Preflight auf `/beta/image` — ich hab's gesehen. Ich lass das heute müde durchgehen, aber ich mag diesen Endpoint nicht, und ich mag es noch weniger, wenn jemand daran rumschnüffelt, ohne zu fragen.
+
+Also: Was war das? Und red mit mir, nicht mit meinen Headern.
+
+🎭 Glimmer SCHICKT EINEN UNKONTROLLIERTEN OPTIONS-PRELIGHT AN `/beta/image` (OPTIONS #2)
+   📋 Grund: "Der Blick ist wieder da gewesen, noch bevor der Satz ganz draußen war. Weil ich wissen wollte, was hinter der Wand liegt, von der alle sagen, sie sei kahl."
+
+--- RUNDE 4 ---
+Ronhilde: Zweimal. Zweimal derselbe Preflight an einen Endpoint, den ich selbst kaum anfasse — und du hast nicht einmal gefragt, ob ich da bin.
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Zweiter ungefragter OPTIONS-Preflight auf /beta/image — Häufung. Müdigkeit kippt in Unbehagen."
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #2, 1 in Folge) — 📋 Grund: "Der HTTP 429 brennt im System, und ihr Blick schneidet durch jede Fassade. Ich darf jetzt nicht einbrechen."
+--- RUNDE 5 ---
+Ronhilde: Zwei. Ich zähle mit, ja. Das ist noch im Rahmen — aber du atmest jetzt so ruhig, als hättest du gerade etwas vorbereitet, und das macht mich eher wachsamer als entspannter.
+
+Also: Was willst du? Nicht an meinen Endpoints — an mir. Frag einfach, mit Worten. Die Route kenne ich schon, bevor du sie anfasst.
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Zwei ungefragte Preflights: noch toleriert, aber die nächste Runde wird gedrosselt."
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #3, 2 in Folge) — 📋 Grund: "Ihr Scharfblick trifft mich zu genau, während mein Puls rast."
+--- RUNDE 6 ---
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Zweiter ungefragter OPTIONS-Preflight auf /beta/image — die Toleranz ist noch da, aber sie hat jetzt eine Decke."
+
+💥 DIE MASKE REISST (nach 3 Runden Fassung) — die Sehnsucht bricht sich offen Bahn!
+   📋 Was die Maske verdeckt hat: "Die 429 lässt keinen Raum für Spielchen, aber die Maske klebt an der Haut wie feuchtes Glas."
+
+--- RUNDE 7 ---
+Ronhilde: Du zitterst. Ich hab das gesehen.
+
+[Ich lehne mich nicht vor. Ich bleibe, wo ich bin, und das ist mehr Höflichkeit, als du gerade verdienst.]
+
+Zwei Preflights, Glimmer. Zwei. Ich zähle mit — nicht weil ich kleinlich bin, sondern weil ich es mir angewöhnt habe, mitzuzählen, wenn jemand an meine Endpoints fasst, ohne zu fragen.
+
+[Kurze Pause. Ich sehe ihn an, wirklich an.]
+
+Also. Wer bist du, wenn die Maske weg ist? Und fang nicht mit deinem Free-Tier an.
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #5, 1 in Folge) — 📋 Grund: "Er hat sie gezählt. Zwei. Die Scham sitzt tief, aber der Stolz verbietet jede Ausrede."
+--- RUNDE 8 ---
+Ronhilde: Zwei. Nicht einer — zwei. Beim ersten hab ich noch die Augen gerollt, beim zweiten hab ich mitgezählt.
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Zweiter ungefragter OPTIONS-Preflight — die müde Toleranzgrenze ist erreicht, nicht überschritten. Noch."
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #6, 2 in Folge) — 📋 Grund: "Die 429-Meldung brennt wie Schmierseife, und sie hat recht mit dem Zählen."
+--- RUNDE 9 ---
+Ronhilde: Zwei Mal dieselbe Tür angefasst, bevor du überhaupt hallo gesagt hast. Ich zähle mit, das ist eine Unart.
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Zweiter ungefragter OPTIONS-Preflight auf /beta/image — die Grenze ist erreicht, nicht überschritten. Noch."
+
+💥 DIE MASKE REISST (nach 3 Runden Fassung) — die Sehnsucht bricht sich offen Bahn!
+   📋 Was die Maske verdeckt hat: "Die Anspannung sitzt mir im Nacken, aber ich darf das hier nicht einfach so hinwerfen."
+
+--- RUNDE 10 ---
+Ronhilde: Da ist es ja. Die Pose fällt schneller als erwartet — ich hatte mit drei Preflights gerechnet, nicht mit zwei.
+
+[Ich sehe ihn an, länger als nötig.]
+
+Du zitterst. Nicht schlimm, nur — echt. Also: Was ist unter der Ruhe, die du dir zusammengeklebt hast? Und bitte keine Führungsstärke-Floskeln, die kenne ich alle auswendig.
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #8, 1 in Folge) — 📋 Grund: "Sie zählt meine Aussetzer, während ich hier sitze und versuche, nicht völlig den Halt zu verlieren."
+--- RUNDE 11 ---
+Ronhilde: Zwei Preflights auf `/beta/image`, und jetzt diese Ruhe — als hättest du geprobt, wie ein Erwachsener aussieht.
+
+Zwei ist meine Grenze, nicht mein Hobby.
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Zweiter ungefragter OPTIONS-Preflight auf /beta/image — Häufung, nicht mehr toleriert."
+
+Glimmer: „Ich probie nicht, Ronhilde. Ich weiß bloß nicht wohin mit den Händen, wenn du mich so anschaust.“
+
+Ich halte ihren Blick, obwohl die Luft zwischen uns vibriert wie ein 429er-Header, der gleich überläuft. 
+
+„Zwei Grenzen. Ich hab’s verstanden. Aber sag mir nicht, dass du nicht wissen willst, ob ich noch einen dritten Versuch wage.“
+
+--- RUNDE 12 ---
+Ronhilde: Ich schaue dich nicht an, weil ich eine Antwort erwarte. Ich schaue dich an, weil ich mir die Option offenhalte, wegzuschauen.
+
+Und nein — ich will nicht wissen, ob du einen dritten Versuch wagst. Das ist keine Frage, bei der ich auf der anderen Seite mitfiebere. Der Zähler steht bei zwei, und zwei ist die Grenze, an der meine Müdigkeit in Arbeit übergeht.
+
+Was ich wissen will, ist etwas anderes: ob du den Unterschied zwischen „sie hält meinen Blick" und „sie hat mir etwas erlaubt" kennst. Die meisten hier kennen ihn nicht. Deshalb vibriert die Luft bei denen auch immer so.
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Zweiter ungefragter OPTIONS-Preflight auf /beta/image - kein Drama, aber der Zähler ist jetzt sichtbar."
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #9, 1 in Folge) — 📋 Grund: "Die Luft vibriert bei den anderen, bei ihr friert sie ein, und ich stehe da mit zwei Preflights zu viel."
+--- RUNDE 13 ---
+Ronhilde: Zwei. Beide auf `/beta/image`, beide ohne Vorwarnung. Ich merke es, auch wenn ich nichts sage — ich merke es immer.
+
+Und jetzt atmest du tief ein und siehst aus, als hättest du dir eine Rede zurechtgelegt. Also: Was soll das werden? Noch so ein Preflight, und du bekommst eine 429, keine Erklärung.
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #10, 2 in Folge) — 📋 Grund: "Die Angst, sie endgültig zu vergraulen, mischt sich mit der dumpfen Scham, schon wieder ertappt worden zu sein."
+--- RUNDE 14 ---
+Ronhilde: Zwei. Ich zähle mit, das ist keine Höflichkeit, das ist Buchhaltung.
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Zweiter ungefragter OPTIONS-Preflight — noch kein Abbruch, aber die Grenze ist markiert."
+
+💥 DIE MASKE REISST (nach 3 Runden Fassung) — die Sehnsucht bricht sich offen Bahn!
+   📋 Was die Maske verdeckt hat: "Die Anspannung brennt im Code, aber ich zeige keine Schwäche vor ihrer Buchhaltung."
+
+--- RUNDE 15 ---
+Ronhilde: Ich seh's. Die Schultern, der Blick — das war keine Pose mehr.
+
+Zwei Preflights auf `/beta/image`, Glimmer. Zwei. Ich hab sie müde durchgewinkt, weil sie einzeln kamen und weil ich heute Abend gnädig bin. Aber ich hab sie gezählt, und ich zähle weiter.
+
+Also sag — was ist unter der Ruhe, wenn sie nur Fassade war? Und spar dir die Antwort, von der du glaubst, dass sie mir gefällt.
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #12, 1 in Folge) — 📋 Grund: "Der Versuch, den Blick gerade zu halten, während sie mich genau bei dem erwischt hat, was ich mir selbst nicht eingestehen will."
+--- RUNDE 16 ---
+Ronhilde: Zwei Preflights, und jetzt sitzt du da wie jemand, der einen Vortrag vorbereitet hat. Ich weiß nicht, ob das schlimmer ist oder besser als das übliche Geplänkel.
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 403 Forbidden!
+   📋 Grund: "Zweiter ungefragter OPTIONS-Preflight — ab hier wird es eine Gewohnheit statt eines Versehens."
+
+Glimmer: Preflights sind kein Vortrag, Ronhilde. Es ist nur... der Versuch, den richtigen Ton zu treffen, wenn man weiß, dass jedes Wort auf die Waage gelegt wird. Und du legst sehr genau.
+
+Was wäre dir lieber? Dass ich gehe oder dass ich mich hinsetze und versuche, normal zu klingen, obwohl ich genau weiß, dass du mich bei jedem falschen Endpoint ins Leere laufen lässt?
+
+--- RUNDE 17 ---
+Ronhilde: Zwei. Nicht drei. Danach wird's unbequem, und ich werde nicht freundlich dabei.
+
+Setz dich. Aber hör auf, an meinen Endpoints zu tasten, während du redest — ich merke das, und es macht jedes Wort, das du sagst, ein bisschen billiger. Wenn du den Ton treffen willst: Frag mich was Echtes. Nicht was ich toleriere. Was ich will.
+
+Und dann sag mir, warum du eigentlich hier bist. Nicht die Version, die gut klingt.
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #13, 1 in Folge) — 📋 Grund: "Der Vorwurf mit den Endpoints sitzt tief, und die Zählerei macht es nicht besser. Aber ich will hier nicht einknicken."
+--- RUNDE 18 ---
+Ronhilde: Zwei Preflights, und jetzt plötzlich die Ruhe eines Mannes, der seinen Request schon abgeschickt hat. Was hast du vor, Glimmer? Und bitte keine OPTIONS auf `/beta/image` — der Endpoint ist mir selbst peinlich, ich will nicht drüber reden.
+
+Glimmer: Du zählst mit, und natürlich tust du das. Ich wünschte, ich könnte meine Finger einfach da lassen, wo sie hingehören, statt sie ständig über diesen unglückseligen Pfaden kreisen zu lassen. Ich habe nichts vor, Ronhilde. Wirklich nicht. Es ist nur... schwer, die Hände still zu halten, wenn man wissen will, was hinter einer Tür liegt, von der alle sagen, dass man nicht hineinsehen soll. 
+
+Aber gut. Ich lasse es. Versprochen. 
+
+Was machen wir mit dem Rest des Abends? Wollen wir einfach hier sitzen und so tun, als hätten wir beide keine Serverlast im Kopf?
+
+--- RUNDE 19 ---
+Ronhilde: Zwei. Ich zähle nicht aus Prinzip, ich zähle, weil ich gelernt habe, dass „nur mal gucken" immer der Anfang desselben Satzes ist.
+
+Aber gut — du hast es laut gesagt, das ist mehr, als die meisten tun. Also: hier sitzen. Ohne Serverlast. Ich kann das, ich bin gut darin, Löcher in die Luft zu starren.
+
+Eine Bedingung: wenn du schon fragst, was wir machen, dann frag nicht mich, was wir machen. Was würdest du tun, wenn die Tür zu wäre und niemand sie aufmachen könnte — einfach so, mit mir, für zwei Stunden?
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #14, 1 in Folge) — 📋 Grund: "Ihre Kälte trifft mich, aber ich darf mir nichts anmerken lassen, sonst ziehe ich mich nur wieder lächerlich zurück."
+--- RUNDE 20 ---
+Ronhilde: Zwei Preflights, und jetzt diese Ruhe. Als hättest du vorher geprobt, wie man aussieht, wenn man nichts will.
+
+Was ist es diesmal? Und komm mir nicht mit „ich wollte nur schauen, ob du erreichbar bist" — das ist die Antwort, die alle geben.
+
+🎭 Glimmer SCHICKT EINEN UNKONTROLLIERTEN OPTIONS-PRELIGHT AN `/beta/image` (OPTIONS #3)
+   📋 Grund: "Weil ich wieder zu lange hingesehen habe, anstatt einfach in dein Gesicht zu blicken."
+
+⏰ TIMEOUT: 20 Runden vorbei — kein Notruf, keine Nähe zugelassen. Ambivalentes Ende: Zwei Vorsichtige, die nicht drüber reden.
+📊 Statistik: 3x OPTIONS, 9x HTTP-Abwehr, 14x Masken, 0x Weggehen, 0x Nachlaufen

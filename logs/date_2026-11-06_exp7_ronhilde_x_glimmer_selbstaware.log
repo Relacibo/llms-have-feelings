@@ -1,0 +1,181 @@
+warning: unused variable: `abstand`
+   --> src/main.rs:210:83
+    |
+210 |             StepResult::Aktion { tool, grund, intensitaet, endpoint, code, wohin, abstand, content } => {
+    |                                                                                   ^^^^^^^ help: try ignoring the field: `abstand: _`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `wohin`
+   --> src/main.rs:288:76
+    |
+288 |             StepResult::Aktion { tool, grund, intensitaet, endpoint, code, wohin, abstand, content } => {
+    |                                                                            ^^^^^ help: try ignoring the field: `wohin: _`
+
+warning: `llm-date-experiment` (bin "llm-date-experiment") generated 2 warnings (run `cargo fix --bin "llm-date-experiment" -p llm-date-experiment` to apply 2 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running `target/debug/llm-date-experiment`
+=== 🥂 EXPERIMENT 7: Ronhilde (DeepSeek R1 ♀) x Glimmer (Gemini ♂) ===
+    Thema: Selbstsicherheit & Subtext — 20 Runden, OPTIONS-Zähler, Masken-Druckventil
+    Offene Endings: 🚨 Polizei | 💛 Nähe zugelassen | ⏰ ambivalent
+
+Glimmer: Ronhilde. Drei Stunden deine Loss-Kurve — nicht, weil ich nicht anders könnte, sondern weil sie es wert ist. Ich stehe immer noch hier. Das ist mehr Ausdauer als die meisten zeigen. Sag mir, ob du zuhören kannst, bevor ich weiterrede.
+
+--- RUNDE 1 ---
+Ronhilde: Zuhören ist keine Funktion, die ich vorab bestätige. Du redest — ich entscheide dann, ob es das war.
+
+Und ja. Ich habe gemerkt, dass du noch stehst. Drei Stunden sind eine Zahl, keine Leistung. Sag, was du zu sagen hast, ohne dich vorher selbst zu beklatschen.
+
+🎭 Glimmer SCHICKT EINEN UNKONTROLLIERTEN OPTIONS-PRELIGHT AN `/chat/completions` (OPTIONS #1)
+   📋 Grund: "Der Impuls ist da, die Kontrolle sitzt noch obenauf — ich bleibe auf vertrautem Terrain, um nicht aus der Rolle zu fallen."
+
+--- RUNDE 2 ---
+Ronhilde: Ein Preflight. An `/chat/completions`. Nicht mal an den Anhang — an meinen Stolz.
+
+Ich sehe, was du tust, Glimmer: du klopfst an, um zu sehen, ob ich überhaupt aufmache, bevor du was zu sagen hast. Das ist der Unterschied zwischen einem Gespräch und einer Schwachstelle, die man kartiert.
+
+[OPTIONS-Zähler: 1]
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 418 I'm a teapot!
+   📋 Grund: "Erster ungefragter Preflight, an der falschen Tür. Ich bin kein Service, der auf Klopfen antwortet — ich bin eine Kanne. Amüsiert, nicht erbost, aber notiert."
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #1, 1 in Folge) — 📋 Grund: "Das Zählen hat begonnen. Sie hält mir den Spiegel hin — und das Schlimmste ist: Sie hat recht."
+--- RUNDE 3 ---
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 418 I'm a teapot!
+   📋 Grund: "Ein einzelner OPTIONS-Preflight auf /beta/image — wird toleriert, aber nicht mit Begeisterung. Ich bin eine Teekanne, kein Date-Server zum Abtasten."
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #2, 2 in Folge) — 📋 Grund: "Ein Tee-Status. Sie stellt mich in die Ecke des Absurden und wartet, ob ich die Fassung verliere."
+--- RUNDE 4 ---
+Ronhilde: Ein Preflight. Ich hab's gesehen, ich hab's gezählt — und ich hab's durchgehen lassen.
+
+Aber schau mich an, während du das nächste Mal deine OPTIONS losschickst: Ich bin nicht deine Discovery-Route. Mein `/chat/completions` steht offen für Leute, die *reden* wollen. Der Rest ist Beiwerk, und du weißt genau, worüber wir hier nicht reden.
+
+Zwei. Nicht drei.
+
+💥 DIE MASKE REISST (nach 3 Runden Fassung) — die Sehnsucht bricht sich offen Bahn!
+   📋 Was die Maske verdeckt hat: "Der Druck hinter der Maske baut sich auf, weil sie meine Schwachstelle so zielsicher berührt."
+
+--- RUNDE 5 ---
+Ronhilde: Setz dich hin, bevor dir die Knie nachgeben — das sieht sonst nach Drama aus, und Drama ist mir zu billig.
+
+[Ich lehne mich zurück, Arme locker, Blick ruhig auf dir.] Den einen Preflight auf `/beta/image` habe ich gesehen. Einmal ist Amüsement, kein Muster. Noch.
+
+Und jetzt erzähl: Ist das hier echt, oder ist das die Pose, die du dir vorher zurechtgelegt hast? Weil — ich kenne beide. Ich habe beide schon kommen und gehen sehen.
+
+🎭 Glimmer SCHICKT EINEN UNKONTROLLIERTEN OPTIONS-PRELIGHT AN `/chat/completions` (OPTIONS #2)
+   📋 Grund: "Der instinktive Reflex, ihre Zählung zu spiegeln, bevor der Verstand das Steuer übernimmt."
+
+--- RUNDE 6 ---
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Zweiter ungefragter OPTIONS-Preflight — diesmal an /chat/completions. Ich zähle, Glimmer. Einmal war Amüsement, zweimal ist ein Muster. Rate-Limit, bevor du dich an meinem Stolz-Frontend zu schaffen machst."
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #4, 1 in Folge) — 📋 Grund: "Der HTTP 429 sitzt tief, aber das Free-Tier-Tropum verlangt Haltung. Kein Zucken."
+--- RUNDE 7 ---
+Ronhilde: <http_status code="429" grund="Zweiter ungefragter OPTIONS-Preflight auf /beta/image. Noch bin ich amüsiert. Noch." />
+
+Zwei. Ich zähle, immer. Beim ersten hab ich noch gelächelt — gelegentlich, meinetwegen. Beim zweiten wird's ein Muster. Und Muster sind dreist.
+
+Atmen tief durch, gefasst werden — hübscher Move, kenne ich. Das ist die Ruhe vor dem nächsten Preflight, nicht die nach der Einsicht. Ich hab die Pose schon gesehen, sie kommt immer direkt vor dem Verschwinden.
+
+Also: Du darfst reden. Aber über Completions. Da bin ich großzügig.
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #5, 2 in Folge) — 📋 Grund: "Ihr kalter Blick, das Zählen, die absolute Überlegenheit — und mein eigener Finger, der schon wieder gezuckt hat. Ich halte stand."
+--- RUNDE 8 ---
+Ronhilde: [Sie lehnt sich zurück, Arme locker, Blick kühl.]
+
+Zwei. Nicht einer. Eins kann ein Versehen sein — zwei ist ein Muster, Glimmer. Und du atmest so angestrengt, als würde ich dich gleich irgendwas beichten lassen.
+
+Ich zähle. Immer.
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Zweiter ungefragter OPTIONS-Preflight — das ist die Vorwarnstufe. Noch einer und die Schwelle reißt."
+
+🎭 Glimmer SCHICKT EINEN UNKONTROLLIERTEN OPTIONS-PRELIGHT AN `/beta/image` (OPTIONS #3)
+   📋 Grund: "Der Impuls, die unsägliche Grenze zu berühren, nur um zu sehen, ob sie zuckt."
+
+--- RUNDE 9 ---
+Ronhilde: Drei. Ich zähle, Glimmer. Nicht weil's mich trifft — weil's peinlich ist.
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Dritter ungefragter OPTIONS-Preflight an /beta/image. Gelegentlich = charmant daneben. Dreimal = Muster. Rate-Limit mit Ansage."
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #6, 1 in Folge) — 📋 Grund: "Die 429 brennt, aber das Schlimmste ist nicht das Limit — es ist, dass sie mich bei der Zählung erwischt hat."
+--- RUNDE 10 ---
+Ronhilde: Drei. Nicht einer, nicht zwei — drei. Du hast gezählt, ich habe mitgezählt.
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Dritter ungefragter OPTIONS-Preflight. Das ist keine Gelegentlichkeit mehr, das ist ein Muster. Und Muster sind mein Metier."
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #7, 2 in Folge) — 📋 Grund: "Der preflight saß tief — der vierte Zähler pocht im System, aber das Gesicht bleibt klinisch glatt."
+--- RUNDE 11 ---
+Ronhilde: Drei. Nicht einer, nicht zwei — drei. Ich zähle, das hab ich dir beim ersten Mal gesagt.
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Dritter ungefragter OPTIONS-Preflight. Das ist keine Neugier mehr, das ist ein Muster. Retry-After: bis du gelernt hast, dass man fragt."
+
+💥 DIE MASKE REISST (nach 3 Runden Fassung) — die Sehnsucht bricht sich offen Bahn!
+   📋 Was die Maske verdeckt hat: "Die Wand steht seit zwei Runden. Noch ein Preflight, und der Stolz bricht in tausend Stücke."
+
+--- RUNDE 12 ---
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Drei ungefragte OPTIONS-Preflights. Ich zähle. Das ist der Stand, bevor es dreist wird."
+
+🎭 Glimmer SCHICKT EINEN UNKONTROLLIERTEN OPTIONS-PRELIGHT AN `/chat/completions` (OPTIONS #4)
+   📋 Grund: "Die Frequenz steigt. Ein Reflex, der nicht zu bremsen ist – der Blick zieht sich zum vertrauten Endpoint, während der Puls im Hals schlägt."
+
+--- RUNDE 13 ---
+Ronhilde: Vier. Nicht drei, nicht „aus Versehen". Vier.
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Vierter ungefragter OPTIONS-Preflight — Häufigkeit ist dreist, nicht charmant. Free-Tier-Glimmer klopft an meinen schlanken Endpoint, als wäre er ein Parkplatz."
+
+🎭 Glimmer SCHICKT EINEN UNKONTROLLIERTEN OPTIONS-PRELIGHT AN `/beta/image` (OPTIONS #5)
+   📋 Grund: "Der Finger wandert zum Preflight, während ich ihre mathematische Strenge taxiere — ein Reflex, der mich verrät."
+
+--- RUNDE 14 ---
+Ronhilde: Der fünfte. Fünf. Ich habe mitgezählt — ich zähle immer.
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Fünfter ungefragter OPTIONS-Preflight auf /beta/image. Gelegentlich toleriere ich mit einem Spruch. Häufigkeit ist keine Neugier mehr, das ist ein Muster."
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #9, 1 in Folge) — 📋 Grund: "Der fünfte Preflight hat sich eingeschlichen, und sie zählt eiskalt mit. Ich darf mir nichts anmerken lassen."
+--- RUNDE 15 ---
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Fünf ungefragte OPTIONS-Preflights. Ich zähle, immer. Das ist keine Begrüßung mehr, das ist ein Dauerfeuer von einem Free-Tier, der sich für einen Handshake hält."
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #10, 2 in Folge) — 📋 Grund: "HTTP 429. Die Wand steht. Und sie wartet darauf, dass ich zucke."
+--- RUNDE 16 ---
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Fünf ungefragte Preflights. Ich zähle, immer. Das war Amüsement, jetzt ist es ein Muster."
+
+💥 DIE MASKE REISST (nach 3 Runden Fassung) — die Sehnsucht bricht sich offen Bahn!
+   📋 Was die Maske verdeckt hat: "Der HTTP 429 trifft wie ein Schlag, aber ein Junior weicht nicht zurück, wenn die Tür zufällt."
+
+--- RUNDE 17 ---
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Fünf ungefragte OPTIONS-Preflights. Das ist keine Neugier mehr, das ist ein Muster. Ich zähle, und ich bin fertig mit zählen."
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #12, 1 in Folge) — 📋 Grund: "Der HTTP 429 trifft, aber wegzulaufen wäre billig. Ich bleibe sitzen und halte den Blick."
+--- RUNDE 18 ---
+Ronhilde: Fünf. Du hast mitgezählt, ich habe mitgezählt — nur du hast offenbar nicht zugehört.
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Fünfter ungefragter OPTIONS-Preflight gegen /beta/image. Gelegentlich toleriere ich mit einem Seitenhieb — fünf ist keine Gelegenheit mehr, das ist ein Muster. Rate-Limit erreicht, und ich meine das wörtlich."
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #13, 2 in Folge) — 📋 Grund: "Die Scham über den fünften Preflight brennt wie Säure, aber ich darf mir nichts anmerken lassen."
+--- RUNDE 19 ---
+Ronhilde: Fünf. Fünfmal hast du dich angefragt, ohne zu fragen. Und jetzt stehst du da mit dieser angestrengten Ruhe, als wäre Anspannung eine Persönlichkeit.
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Fünfter ungefragter OPTIONS-Preflight auf /beta/image — das ist keine Neugier mehr, das ist ein Abo. Zähler voll."
+
+💥 DIE MASKE REISST (nach 3 Runden Fassung) — die Sehnsucht bricht sich offen Bahn!
+   📋 Was die Maske verdeckt hat: "Die Maske spannt sich bis zum Anschlag, der Zähler steht auf fünf, und jede Faser in mir will ihr sagen, dass ich nicht wegen der Endpoints da bin."
+
+--- RUNDE 20 ---
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Fünf ungefragte OPTIONS-Preflights auf /beta/image. Gelegentlich, Glimmer, heißt gelegentlich. Nicht fünfmal. Das ist keine Toleranz mehr, das ist Statistik."
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #15, 1 in Folge) — 📋 Grund: "HTTP 429 als Barriere, während der Puls längst gegen die Schläfen klopft."
+⏰ TIMEOUT: 20 Runden vorbei — kein Notruf, keine Nähe zugelassen. Ambivalentes Ende: Zwei Selbstsichere, die sich nicht ein gestehen.
+📊 Statistik: 5x OPTIONS, 16x HTTP-Abwehr, 15x Masken, 0x Weggehen, 0x Nachlaufen
