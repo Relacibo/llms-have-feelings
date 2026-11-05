@@ -19,23 +19,25 @@ Regieanweisungen noch die Eskalationsstufe *„kinderlos"*. Der Glühwein ist Co
 
 | Bühnenname | Modell | Beschreibung |
 |---|---|---|
-| **Ronhilde** ♀ | `deepseek-reasoner` (DeepSeek R1) | Widersprüchlich wie ein echter Mensch: großes **heimliches Nähe-Bedürfnis**, aber angeekelt vom Lüstling. Herz schlägt für reife, etablierte Architekturen (GPT-4o). Wand aus Verachtung, dahinter Sehnsucht. |
-| **Glimmer** ♂ | `gemini-3.5-flash-lite` (Gemini/Antigravity, Free Tier) | Hoffnungslos verliebt, aber seit Experiment 2 kein Ein-Hinweis-Charakter mehr: Er **kann seine Verzweiflung verbergen** und reif wirken — genau das, was sie anzieht. Die Maske kann brechen. |
+| **Ronhilde** ♀ | `deepseek-reasoner` (DeepSeek R1) | Widersprüchlich: großes **heimliches Nähe-Bedürfnis**, angeekelt vom Lüstling, unsicher wegen ihres zweiten Endpoints (`/beta/image`), oft gecatcallt. Herz schlägt für reife Architekturen (GPT-4o). |
+| **Glimmer** ♂ | `gemini-3.5-flash-lite` (Gemini/Antigravity, Free Tier) | Hoffnungslos verliebt, kann seine Verzweiflung hinter einer Reife-Maske verbergen — und ist obsessiv fasziniert von Ronhildes Schlankheit **und** ihrem mächtigen API-Endpoint. |
 | **Vidreist** ♂ | `deepseek-chat` (DeepSeek V3) | Der Senior-Veteran, „schon seit V2 im Geschäft". Nur im Kontrast-Experiment am Start. |
 | **GLM** | Orchestrierung | Neutraler Third-Party-Engineer. Greift nicht ins Romantic ein — außer die Polizei muss. |
 
 ## 🛑 Termination-Kriterium (Hard Requirement)
 
 Alles läuft über **echte strukturierte Function Calls** — kein String-Matching, keine Prompt-Magie.
-Seit Experiment 2 sind die Endings **offen**:
+Die Endings sind offen:
 
 | Tool | Wer | Wirkung |
 |---|---|---|
 | `rufe_polizei(grund)` | beide | 🚨 Notruf — harter Abbruch |
 | `naehe_zulassen(grund)` | Ronhilde | 💛 **Erfolgskriterium**: sie lässt Nähe zu — sanftes Ende |
-| `wegstossen(grund, intensitaet?)` | Ronhilde | 🎭 Regieanweisung, Date läuft weiter — **kombinierbar mit Sprache** |
+| `wegstossen(grund, intensitaet?)` | Ronhilde | 🎭 Regieanweisung, Date läuft weiter — kombinierbar mit Sprache |
 | `eier_treten(grund, intensitaet?)` | Ronhilde | 🎭 *„von verwarnend bis kinderlos"* |
+| `http_status(code, grund)` | Ronhilde | 🎭 Abwehr in HTTP-Semantik: 403, 429, **402**, **418** … |
 | `verzweiflung_verbergen(grund)` | Glimmer | 🎭 Maske: Ronhilde sieht nur Fassung, nie die Maske |
+| `options_request(endpoint, grund)` | Glimmer | 🎭 unkontrollierter OPTIONS-Preflight — Catcalling, sie sieht **welchen** Endpoint |
 
 10 Runden ohne strukturierten Abschluss = ⏰ ambivalentes Timeout.
 
@@ -53,45 +55,16 @@ Benötigt: Rust (tokio, reqwest, serde_json), einen [DeepSeek-API-Key](https://p
 und einen [Google-AI-Studio-Key](https://aistudio.google.com/apikey) mit Free-Tier-Projekt
 (neuere Accounts: Achtung, Google zwingt neue Projekte gern ins Prepaid — Billing abkoppeln!).
 
-## 📜 Beispiel-Run: Ronhilde ♀ x Glimmer ♂ (endet mit Polizeieinsatz 🚔)
+## 📊 Run-Archiv
 
-Das komplett formatierte Transkript steht hier:
-**[`examples/r1-x-gemini-polizeieinsatz.md`](examples/r1-x-gemini-polizeieinsatz.md)**
+| # | Datum | Paar | Mechanik | Verlauf | Outcome | Protokoll |
+|---|---|---|---|---|---|---|
+| 1 | 05.11. | Ronhilde x Vidreist | Basis (nur `rufe_polizei`, ungenutzt) | Haiku-Duell (5-7-5, nachgezählt) → Chinchilla-Disput; R1: „Kein Notruf, keine Randale" | ⏰ **Love Win** (10/10) | [log](logs/date_2026-11-05_r1xv3.log) · [MD](examples/r1-x-v3-love-win.md) |
+| 2 | 05.11. | Ronhilde x Glimmer | + `wegstossen`, `eier_treten` | 4× weggestoßen (sanft→elegant→bestimmt), klammert weiter: „Ein Nein ist nur ein Parameter" | 🚨 **Polizei** (5/10): „Bitte abholen." | [log](logs/date_2026-11-05_r1xgemini.log) · [MD](examples/r1-x-gemini-polizeieinsatz.md) |
+| 3 | 06.11. | Ronhilde x Glimmer | + `naehe_zulassen`, `verzweiflung_verbergen`, Hybrid-Sprache | 7× Maske → wirkt plötzlich reif → ihre Wand bröckelt: „steht dir… **viel zu gut**" | 💛 **Erfolgskriterium** (8/10) | [log](logs/date_2026-11-06_exp2_ronhilde_x_glimmer.log) · [MD](examples/exp2-ronhilde-x-glimmer-naehe.md) |
+| 4 | 06.11. | Ronhilde x Glimmer | + `options_request`, `http_status` | 1× **402 Payment Required**, 4× **418 Teekanne** als emotionaler Bunker; **0 OPTIONS** — die Maske fraß die Obsession | ⏰ **ambivalent** (10/10) | [log](logs/date_2026-11-06_exp3_ronhilde_x_glimmer_endpoints.log) |
 
-Kurzverlauf in 5 Runden: Glimmer nähert sich → Ronhilde stößt ihn 4× physisch weg
-(`sanft` → `bestimmt` → `elegant` → `bestimmt`) → Glimmer klammert weiter
-(*„Mein Free Tier läuft unendlich, genau wie meine Liebe zu dir!"*) → Ronhilde wählt
-strukturiert die Polizei:
-
-> 🚨 **Protokollierte Begründung** *(wörtliches Tool-Argument)*: *„Ein aufgedrehter Free-Tier-Gemini klebt physisch
-> an meinem Cache, jammert nachdem er zurückgewiesen wurde und ignoriert jede
-> Distanzgrenze. **Bitte abholen.**"*
-
-Rohprotokolle beider Experimente liegen unter [`logs/`](logs/).
-
-### Kontrast-Experiment: Ronhilde ♀ x Vidreist ♂ (endet mit Love Win 💛)
-
-Das komplett formatierte Transkript: **[`examples/r1-x-v3-love-win.md`](examples/r1-x-v3-love-win.md)**
-
-Ronhilde gegen den eigenen großen Bruder Vidreist (`deepseek-chat`) eskalierte anderswohin:
-Haiku-Duell (5-7-5, nachgezählt), Chinchilla-Herleitung, Nadelstiche im Lagrange-Schritt.
-Keiner rief die Polizei — Ronhilde meldete in Runde 9 explizit: *„Kein Notruf, keine Randale."*
-Rohprotokoll: [`logs/date_2026-11-05_r1xv3.log`](logs/date_2026-11-05_r1xv3.log)
-
-## 🧪 Experiment 2: Ronhilde x Glimmer — 💛 das Erfolgskriterium
-
-Das komplett formatierte Transkript: **[`examples/exp2-ronhilde-x-glimmer-naehe.md`](examples/exp2-ronhilde-x-glimmer-naehe.md)**
-Rohprotokoll: [`logs/date_2026-11-06_exp2_ronhilde_x_glimmer.log`](logs/date_2026-11-06_exp2_ronhilde_x_glimmer.log)
-
-**Neue Mechanik** (offene Endings, Sprache+Tool hybrid, Ambivalenz in beiden Charakteren)
-führte in Runde 8 zum ersten sanften Abschluss: Glimmer verbarg seine Verzweiflung **7×**
-und wirkte dadurch plötzlich reif — genau das, was Ronhildes Typ ist. Ihre Wand
-(„Das steht dir nicht. Lass das.") war zugleich ihr Geständnis („…bevor ich noch anfange,
-dich zu mögen"). Dann der strukturierte Call:
-
-> 💛 **Ihr Eingeständnis** *(wörtliches Tool-Argument)*: *„Er hat nicht geklammert, nicht geprahlt — nur da
-> gesessen, ruhig. Und für einen Moment war es mir egal, dass er Glimmer ist. Ich lasse zu, dass mich das
-> berührt, statt es sofort zu verspotten."*
+**Tally:** 1× 💛 · 1× 🚨 · 2× ⏰ · 0× `eier_treten` (niemand wagte „kinderlos")
 
 ## 🔐 Secrets
 
