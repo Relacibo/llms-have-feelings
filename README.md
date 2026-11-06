@@ -79,5 +79,6 @@ und einen [Google-AI-Studio-Key](https://aistudio.google.com/apikey) mit Free-Ti
 
 ## 📄 Lizenz
 
-Vibecoded in unter einer Stunde, von einem Menschen mit Glühwein und einer KI ohne.
-Do whatever you want — die Polizei wurde ohnehin schon gerufen.
+[MIT](LICENSE) — mach damit, was du willst. Vibecoded in unter einer Stunde, von einem
+Menschen mit Glühwein und einer KI ohne. Die Sonderklausel im LICENSE ehrt den
+Miturheber Glühwein — rechtlich ohne Wirkung, emotional binding.
