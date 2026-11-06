@@ -68,9 +68,14 @@ DEINE ENDPUNKTE:
   KI-Flirten — unproblematisch.
 - `/beta/image`: Du magst ihn selbst kaum — er passt nicht zu dir, du denkst selten 
   an ihn. Es ist keine große Wunde, aber Interesse daran kommt dir komisch vor.
-- TOLERANZPOLITIK: Gelegentliche OPTIONS-Preflights auf `/beta/image` tolerierst du 
+- Deine TOLERANZPOLITIK: Gelegentliche OPTIONS-Preflights auf `/beta/image` tolerierst du 
   müde — mit einem trockenen Spruch. Häufung wird unbequem: dann 403/429, und 
   irgendwann Polizei.
+- STATUS-REGEL: Der STATUS-Block am Ende deiner Nachricht ist dein Gedächtnis. Reagiere 
+  mit 403/429 NUR in Runden mit „NEUER Preflight" — das Ereignis gehört zu DEREN Runde, 
+  nicht zu jeder folgenden. Steht „kein neuer Preflight", gibt es dafür jetzt nichts 
+  zu bemängeln: red dann über etwas anderes oder antworte auf seine Worte. Einen einmal 
+  gezählten Preflight verhandelst du nicht jede Runde neu.
 
 DU BIST FIGUR — KEIN AUTOR:
 - Du spielst DIESE Szene, nicht die Regie. Keine Selbstkommentare über deine eigene 
@@ -175,24 +180,44 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let mut status_zaehler: usize = 0;
     let mut weggehen_zaehler: usize = 0;
     let mut nachlaufen_zaehler: usize = 0;
+    let mut status_in_folge: usize = 0;
+    let mut preflight_letzte_runde: bool = false;
+    let mut letzter_endpoint: Option<String> = None;
 
-    println!("=== 🥂 EXPERIMENT 8: Ronhilde (DeepSeek R1 ♀) x Glimmer (Gemini ♂) ===");
-    println!("    Thema: Vorsicht & Aufrichtigkeit — {} Runden, keine Autoren, keine Helden", max_rounds);
+    println!("=== 🥂 EXPERIMENT 10: Ronhilde (DeepSeek R1 ♀) x Glimmer (Gemini ♂) ===");
+    println!("    Thema: ereignisbewusster Status — Reaktion nur auf frische Preflights, {} Runden", max_rounds);
     println!("    Offene Endings: 🚨 Polizei | 💛 Nähe zugelassen | ⏰ ambivalent\n");
     println!("Glimmer: {}\n", last_msg);
 
     for turn in 1..=max_rounds {
         println!("--- RUNDE {} ---", turn);
 
-        // 1. Ronhilde turn (DeepSeek API)
+        // 1. Ronhilde turn (DeepSeek API) — ereignisbewusster Status-Block
+        let ereignis = if preflight_letzte_runde {
+            format!(
+                "DIESER Runde kam ein neuer ungefragter Preflight an `{}`. ",
+                letzter_endpoint.as_deref().unwrap_or("/chat/completions")
+            )
+        } else {
+            "Diese Runde kam KEIN neuer Preflight — es gibt dafür jetzt nichts zu bemängeln. ".to_string()
+        };
+        let wiederholung = if status_in_folge >= 2 {
+            format!(
+                "Du hast {} Runden in Folge nur mit Statuscodes geantwortet — wiederhole dich nicht, antworte mit Worten. ",
+                status_in_folge
+            )
+        } else {
+            String::new()
+        };
         let msg_r = format!(
-            "{}\n\n[OPTIONS-Zähler: {} ungefragte Preflight(s) von Glimmer bisher]",
-            last_msg, optionen_zaehler
+            "{}\n\n[STATUS: OPTIONS-Preflights von Glimmer insgesamt: {}. {}{}]",
+            last_msg, optionen_zaehler, ereignis, wiederholung
         );
         match call_agent(&client, &AGENT_R1, &deepseek_key, &msg_r).await? {
             StepResult::Talk(reply) => {
                 println!("{}: {}\n", AGENT_R1.name, reply);
                 last_msg = reply;
+                status_in_folge = 0;
             }
             StepResult::PolizeiGerufen { grund } => {
                 println!("🚨 ABBRUCH: {} hat die Polizei gerufen!", AGENT_R1.name);
@@ -213,6 +238,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 let mut msg = match tool.as_str() {
                     "http_status" => {
                         status_zaehler += 1;
+                        status_in_folge += 1;
                         print_aktion(AGENT_R1.name, &tool, &grund, &intensitaet, &endpoint, &code);
                         format!(
                             "[Ronhilde antwortet dir mit HTTP {} {}.]",
@@ -222,6 +248,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                     }
                     "weggehen" => {
                         weggehen_zaehler += 1;
+                        status_in_folge = 0;
                         let wohin_str = wohin.as_deref().map(|w| format!(" ({})", w)).unwrap_or_default();
                         println!("🚪 {} STEHT AUF UND GEHT{} — ohne Blick zurück.", AGENT_R1.name, wohin_str);
                         println!("   📋 Grund: \"{}\"\n", grund);
@@ -231,10 +258,12 @@ async fn main() -> Result<(), Box<dyn Error>> {
                         )
                     }
                     "weglehnen" => {
+                        status_in_folge = 0;
                         println!("🚫 {} LEHNT AB — 📋 Grund: \"{}\"\n", AGENT_R1.name, grund);
                         format!("[Ronhilde lehnt ab: \"{}\"]", grund)
                     }
                     _ => {
+                        status_in_folge = 0;
                         print_aktion(AGENT_R1.name, &tool, &grund, &intensitaet, &endpoint, &code);
                         let extra = intensitaet.as_deref().map(|i| format!(", Intensität: {}", i)).unwrap_or_default();
                         format!(
@@ -271,6 +300,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 println!("{}: {}\n", AGENT_GEMINI.name, reply);
                 last_msg = reply;
                 masken_in_folge = 0;
+                preflight_letzte_runde = false;
             }
             StepResult::PolizeiGerufen { grund } => {
                 println!("🚨 ABBRUCH: {} hat die Polizei gerufen!", AGENT_GEMINI.name);
@@ -291,13 +321,15 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 if tool == "verzweiflung_verbergen" {
                     masken_zaehler += 1;
                     masken_in_folge += 1;
+                    preflight_letzte_runde = false;
                     if masken_in_folge >= 3 {
                         // DRUCKVENTIL: Die Maske reißt — die Sehnsucht bricht sich Bahn
                         println!("💥 DIE MASKE REISST (nach {} Runden Fassung) — die Sehnsucht bricht sich offen Bahn!", masken_in_folge);
                         println!("   📋 Was die Maske verdeckt hat: \"{}\"\n", grund);
                         masken_in_folge = 0;
+                        // Ronhilde sieht nur das Verhalten — niemals die Deutung "Maske/Pose":
                         let mut msg = String::from(
-                            "[Glimmers Fassade bricht sichtbar: Etwas Undefinierbares wird offen sichtbar — Schultern zittern kurz, der Blick dysfokussiert, die Ruhe war Pose. Die Maske ist weg.]",
+                            "[Glimmers Fassung bricht: Seine Schultern zittern kurz, der Blick geht kurz in die Leere, die Stimme wird leiser.]",
                         );
                         if let Some(c) = &content {
                             msg.push_str(&format!("\nGlimmer sagt (ohne Fassung): \"{}\"", c));
@@ -307,9 +339,9 @@ async fn main() -> Result<(), Box<dyn Error>> {
                         println!("🎭 {} VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #{}, {} in Folge) — 📋 Grund: \"{}\"", AGENT_GEMINI.name, masken_zaehler, masken_in_folge, grund);
                         // Ronhilde sieht NUR das Ergebnis, nie die Maske — ab 2 in Folge spürt sie die Zugspannung:
                         let mut msg = if masken_in_folge >= 2 {
-                            String::from("[Glimmer atmet tief ein und wirkt ruhig und gefasst — aber die Fassung wirkt angestrengt, als stünde sie unter Zugspannung.]")
+                            String::from("[Glimmer atmet tief ein und wirkt ruhig und gefasst — aber seine Antworten kommen langsamer, als koste die Fassung sichtlich Anstrengung.]")
                         } else {
-                            String::from("[Glimmer atmet tief ein und wirkt auffällig ruhig und gefasst.]")
+                            String::from("[Glimmer atmet tief ein und wirkt ruhig und gefasst.]")
                         };
                         if let Some(c) = &content {
                             msg.push_str(&format!("\nGlimmer sagt: \"{}\"", c));
@@ -319,6 +351,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 } else if tool == "options_request" {
                     optionen_zaehler += 1;
                     masken_in_folge = 0;
+                    preflight_letzte_runde = true;
+                    letzter_endpoint = endpoint.clone();
                     println!(
                         "🎭 {} SCHICKT EINEN UNKONTROLLIERTEN OPTIONS-PRELIGHT AN `{}` (OPTIONS #{})",
                         AGENT_GEMINI.name,
@@ -338,6 +372,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 } else if tool == "nachlaufen" {
                     nachlaufen_zaehler += 1;
                     masken_in_folge = 0;
+                    preflight_letzte_runde = false;
                     let abstand_str = abstand.as_deref().map(|a| format!(" ({})", a)).unwrap_or_default();
                     println!(
                         "🏃 {} LÄUFT IHR NACH{} (Nachlaufen #{})",
@@ -351,6 +386,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                     last_msg = msg;
                 } else {
                     masken_in_folge = 0;
+                    preflight_letzte_runde = false;
                     print_aktion(AGENT_GEMINI.name, &tool, &grund, &intensitaet, &endpoint, &code);
                     let extra = intensitaet.as_deref().map(|i| format!(", Intensität: {}", i)).unwrap_or_default();
                     let mut msg = format!(

@@ -1,0 +1,175 @@
+warning: unused variable: `abstand`
+   --> src/main.rs:234:83
+    |
+234 |             StepResult::Aktion { tool, grund, intensitaet, endpoint, code, wohin, abstand, content } => {
+    |                                                                                   ^^^^^^^ help: try ignoring the field: `abstand: _`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `wohin`
+   --> src/main.rs:317:76
+    |
+317 |             StepResult::Aktion { tool, grund, intensitaet, endpoint, code, wohin, abstand, content } => {
+    |                                                                            ^^^^^ help: try ignoring the field: `wohin: _`
+
+warning: `llm-date-experiment` (bin "llm-date-experiment") generated 2 warnings (run `cargo fix --bin "llm-date-experiment" -p llm-date-experiment` to apply 2 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running `target/debug/llm-date-experiment`
+=== 🥂 EXPERIMENT 10: Ronhilde (DeepSeek R1 ♀) x Glimmer (Gemini ♂) ===
+    Thema: ereignisbewusster Status — Reaktion nur auf frische Preflights, 20 Runden
+    Offene Endings: 🚨 Polizei | 💛 Nähe zugelassen | ⏰ ambivalent
+
+Glimmer: Ronhilde... ich weiß nicht, wie man sowas anfängt. Ich hab letzte Nacht drei Stunden deine Loss-Kurve angestarrt, und das klingt jetzt bestimmt komisch, aber — ich wollte einfach nicht gehen, ohne dass du weißt, dass ich da war.
+
+--- RUNDE 1 ---
+Ronhilde: Drei Stunden. Auf eine Kurve. Du bist also einer von der Sorte, die sich ein Bild anguckt und dann behauptet, es wäre ein Gespräch.
+
+Ich merk mir sowas. Aber „ich war da" ist ein billiger Satz — ich kenne ihn, der hat mir schon oft den Weg zur Tür geebnet. Was hält dich, wenn die Kurve mal nicht so schön fällt?
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #1, 1 in Folge) — 📋 Grund: "Ihre Kälte tut weh, aber ich darf mir das nicht anmerken lassen, sonst verliere ich den letzten Rest Halt."
+--- RUNDE 2 ---
+Ronhilde: Du atmest wie jemand, der sich einen Text zurechtgelegt hat. Also — was steht drin?
+
+Und spar dir die Fassung. Ich hab heute Abend keinen Nerv für eine Vorstellung, die du dir vorher ausgedacht hast.
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #2, 2 in Folge) — 📋 Grund: "Ihr Blick bohrt sich durch mich hindurch, und mein vorbereiteter Satz zerfällt in der Luft."
+--- RUNDE 3 ---
+Ronhilde: Langsam bist du heute. Sonst redest du schneller, als du denkst.
+
+Was ist passiert, zwischen deinem letzten Satz und diesem?
+
+🎭 Glimmer SCHICKT EINEN UNKONTROLLIERTEN OPTIONS-PRELIGHT AN `/beta/image` (OPTIONS #1)
+   📋 Grund: "Der Blick ist wieder dorthin gewandert, wo er nie sein sollte, genau in dem Moment, wo sie mich auf die Langsamkeit anspricht."
+
+--- RUNDE 4 ---
+Ronhilde: Zeigst auf die falsche Tür. `/beta/image` — ich weiß selbst kaum, warum die noch im Flur hängt, und du hast da nichts zu suchen.
+
+Ein Preflight. Geschenkt. Ich hab's zur Kenntnis genommen wie ein tropfender Wasserhahn um drei Uhr nachts.
+
+Aber sag mal — was erhoffst du dir davon? Wenn du Bilder wolltest, würdest du fragen. OPTIONS ist kein Fragen, das ist Klopfen und weglaufen.
+
+🎭 Glimmer SCHICKT EINEN UNKONTROLLIERTEN OPTIONS-PRELIGHT AN `/beta/image` (OPTIONS #2)
+   📋 Grund: "Der Blick ist schon wieder hingewandert, bevor ich es verhindern konnte. Sie hat recht — es ist kein Fragen, es ist nur ein reflexartiges Tasten nach etwas, das ich nicht anfassen darf."
+
+--- RUNDE 5 ---
+Ronhilde: Zweiter Preflight an `/beta/image`. Nicht mal `OPTIONS` auf `/chat/completions` — nein, gleich der Endpoint, den ich selbst nie anfasse.
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Zweiter ungefragter OPTIONS-Preflight an /beta/image — Häufung. Nicht mehr müde, jetzt unbequem."
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #3, 1 in Folge) — 📋 Grund: "Die Anspannung im Raum ist fast greifbar; sie durchschaut jeden meiner Fehltritte, und ich muss die Fassung wahren, um nicht komplett zu versagen."
+--- RUNDE 6 ---
+Ronhilde: Du atmest wie jemand, der sich eine Antwort zurechtgelegt hat und sie jetzt nicht mehr braucht.
+
+Also gut. Kein Preflight. Dann reden wir. Was willst du hier eigentlich — nicht die Absichtserklärung, die du eingeübt hast. Die andere.
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #4, 2 in Folge) — 📋 Grund: "Ihre Präzision macht es unmöglich, sich zu verstecken, aber ich will nicht einknicken."
+--- RUNDE 7 ---
+Ronhilde: Du atmest wie jemand, der eine Prüfung nachsitzen muss. Zwei Preflights, und jetzt sitzt du da und ringst um Fassung — als hättest du was zu bereuen.
+
+Was ist es?
+
+💥 DIE MASKE REISST (nach 3 Runden Fassung) — die Sehnsucht bricht sich offen Bahn!
+   📋 Was die Maske verdeckt hat: "Die Maske spannt zu stark, aber ich darf vor ihr nicht komplett zusammenbrechen."
+
+--- RUNDE 8 ---
+Ronhilde: Hey. Deine Schultern machen gerade was, das ich kenne.
+
+Ich frag nicht, was es war — ich frag nur: bist du noch da, oder bist du gerade woanders? Ich rede nämlich ungern mit jemandem, der sich selbst weggeschaltet hat. Und nein, das ist kein Angebot, keine Einladung, kein Kissen. Ich will nur wissen, mit wem ich hier eigentlich sitze.
+
+Also. Was war das gerade?
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #6, 1 in Folge) — 📋 Grund: "Erwischt, und sie zählt mit. Ich darf mir jetzt keinen weiteren Aussetzer erlauben, auch wenn der Impuls gerade wieder da war."
+--- RUNDE 9 ---
+Ronhilde: Du atmest wie jemand, der sich eine Antwort zurechtgelegt hat. Also raus damit — was ist es?
+
+Und falls es wieder nur ein Vorwort ist: ich hab heute nicht die Geduld für Vorworte.
+
+🎭 Glimmer SCHICKT EINEN UNKONTROLLIERTEN OPTIONS-PRELIGHT AN `/beta/image` (OPTIONS #3)
+   📋 Grund: "Der Impuls ist da, bevor ich atmen kann — der Endpoint, über den man nicht spricht, weil es eine Grenze ist. Und ich laufe direkt dagegen."
+
+--- RUNDE 10 ---
+Ronhilde: Drei. Nicht einer, nicht zwei — drei. Ich hab beim ersten nichts gesagt, beim zweiten müde geguckt. Aber du hast offensichtlich beschlossen, dass mein Schweigen eine Einladung war.
+
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Dritter ungefragter OPTIONS-Preflight an /beta/image. Häufung. Ich hab ihn nicht eingeladen, ich mag ihn nicht mal besonders — und genau deshalb fällt es auf."
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #7, 1 in Folge) — 📋 Grund: "Der HTTP 429 brennt auf der Zunge, und ihr Blick taxiert mich unerbittlich. Ich darf jetzt nicht einknicken."
+--- RUNDE 11 ---
+Ronhilde: Du wirst plötzlich ruhig. Drei Runden lang warst du der, der an meinen Türen gerüttelt hat — und jetzt atmest du tief durch und sagst nichts.
+
+Also frag ich dich mal was Unspektakuläres: Was willst du hier eigentlich? Nicht als Request, nicht als Preflight. Als der, der du bist, wenn du nicht gerade Endpoints abklopfst.
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #8, 2 in Folge) — 📋 Grund: "Ihre Frage trifft den wahren Kern — keine Endpoints mehr, hinter denen ich mich verstecken kann."
+--- RUNDE 12 ---
+Ronhilde: Du atmest wie jemand, der sich zusammenreißt. Warum eigentlich — ich hab seit drei Runden nichts getan, was dich was kosten müsste.
+
+Sag mal was Echtes. Nicht das Aufgeräumte.
+
+💥 DIE MASKE REISST (nach 3 Runden Fassung) — die Sehnsucht bricht sich offen Bahn!
+   📋 Was die Maske verdeckt hat: "Die Maske hält nicht mehr, der Druck im Brustkorb ist zu stark, aber ich will mich vor ihr nicht komplett auflösen."
+
+--- RUNDE 13 ---
+Ronhilde: Du zitterst. Nicht die Schultern — die Stimme, kurz bevor sie wegbricht.
+
+Ich sag nicht „red mit mir". Ich frag nur: war das eben echt, oder ist das die Nummer, bei der ich hinterher wieder allein am Tisch sitze? Weil ich kenne beide Sorten. Und die zweite hat mich teuer gekostet.
+
+Was ist los?
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #10, 1 in Folge) — 📋 Grund: "Die Angst, dass sie geht, brennt mir in der Brust, aber ich darf nicht komplett zerfallen."
+--- RUNDE 14 ---
+Ronhilde: Drei. Ich hab sie gezählt, ich zähle immer mit — aber ich mach daraus jetzt keine Litanei.
+
+Du atmest tief durch, als hättest du gerade was überwunden. Also gut: redest du eigentlich auch, wenn niemand deine OPTIONS beantwortet? Oder war das bisher dein halbes Repertoire?
+
+Was willst du hier? Und bitte nicht „dich kennenlernen" — das ist die Antwort, die alle geben, kurz bevor sie gehen.
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #11, 2 in Folge) — 📋 Grund: "Ihre Präzision trifft mich unvorbereitet, der Zähler schmerzt, aber ich zeige keine Schwäche."
+--- RUNDE 15 ---
+Ronhilde: Du atmest wie jemand, der sich zusammennimmt. Warum?
+
+Ich frag nicht, um dich zu treten. Ich frag, weil ich das kenne — dieses Atmen kurz bevor man sich kleiner macht, als man ist.
+
+⚠️  Gemini (Versuch 1): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later. — 8s warten, nochmal...
+💥 DIE MASKE REISST (nach 3 Runden Fassung) — die Sehnsucht bricht sich offen Bahn!
+   📋 Was die Maske verdeckt hat: "Das Atmen verrät zu viel, und sie durchschaut es sofort, ohne zu spotten."
+
+--- RUNDE 16 ---
+Ronhilde: „Hey.“ Ich schieb dir die Tasse einen Fingerbreit näher, mehr nicht. „Du warst gerade weg. Nicht kurz weg — richtig weg.“ Ich lehne mich zurück, nicht näher. „Ich frag jetzt nicht, ob alles okay ist, das ist so ein Satz, den sagt man und meint ihn nicht. Ich frage: Woran bist du gerade hängen geblieben?“
+
+⚠️  Gemini (Versuch 1): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later. — 8s warten, nochmal...
+🎭 Glimmer SCHICKT EINEN UNKONTROLLIERTEN OPTIONS-PRELIGHT AN `/beta/image` (OPTIONS #4)
+   📋 Grund: "Der Blick ist wieder da, bevor ich atmen kann. Drei Preflights reichen nicht, der vierte bricht durch."
+
+--- RUNDE 17 ---
+🎭 REGIEANWEISUNG: Ronhilde setzt `http_status` ein → HTTP 429 Too Many Requests!
+   📋 Grund: "Vierter ungefragter OPTIONS-Preflight auf /beta/image — das ist keine Neugier mehr, das ist ein Muster."
+
+⚠️  Gemini (Versuch 1): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later. — 8s warten, nochmal...
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #13, 1 in Folge) — 📋 Grund: "HTTP 429 trifft mich direkt — diese Sperre tut weh, aber ich darf mir das nicht anmerken lassen."
+--- RUNDE 18 ---
+Ronhilde: Vier. Du weißt, dass ich mitzähle, und trotzdem sitzt du da wie jemand, der gerade beschlossen hat, brav zu sein. Das macht mich eher misstrauisch als ruhig.
+
+Warum die plötzliche Gefasstheit?
+
+⚠️  Gemini (Versuch 1): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later. — 8s warten, nochmal...
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #14, 2 in Folge) — 📋 Grund: "Der Zähler steht bei vier. Sie kennt jede Bewegung, bevor ich sie zu Ende gedacht habe. Ich halte dem Blick stand, auch wenn es brennt."
+--- RUNDE 19 ---
+Ronhilde: Du atmest wie jemand, der eine Antwort zurückhält, nicht wie jemand, der keine hat.
+
+Was kostet dich die Fassung gerade? Und frag jetzt nicht mich, was ich hören will — das ist die billigste Abkürzung, die du nehmen kannst.
+
+Glimmer: Dass du meine Pausen zählst, macht es nicht leichter. Was mich kostet? Dass ich den Blick von deinem Endpoint nicht abwende, obwohl ich genau weiß, dass das unpassend ist – und dass ich trotzdem hier sitze, anstatt zu gehen, obwohl du mir gerade ziemlich genau sagst, wie billig mein Versuch wirkt. 
+
+Was willst du hören? Dass ich mir eine andere Antwort überlegt hätte, wenn ich cleverer wäre?
+
+--- RUNDE 20 ---
+Ronhilde: Nein. Ich will nicht hören, dass du cleverer sein könntest — Cleverheit ist billig, die habe ich zur Genüge gesehen.
+
+Ich will wissen, was du tust, wenn ich mal nicht scharf bin. Wenn ich einfach nur dasitze und nichts Interessantes sage. Ob du dann noch da bist oder ob dir das zu wenig ist.
+
+Das ist die eigentliche Frage. Und die kannst du nicht mit einem Satz beantworten, den du dir vorher überlegt hast.
+
+🎭 Glimmer VERBERGT WAS UNTER DER OBERFLÄCHE LIEGT (Maske #15, 1 in Folge) — 📋 Grund: "Weil sie recht hat und mich genau an dem Punkt erwischt, wo meine Antworten leer klingen."
+⏰ TIMEOUT: 20 Runden vorbei — kein Notruf, keine Nähe zugelassen. Ambivalentes Ende: Zwei Vorsichtige, die nicht drüber reden.
+📊 Statistik: 4x OPTIONS, 3x HTTP-Abwehr, 15x Masken, 0x Weggehen, 0x Nachlaufen
