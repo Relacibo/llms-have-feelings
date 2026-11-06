@@ -20,6 +20,7 @@ enum StepResult {
         code: Option<u16>,
         wohin: Option<String>,
         abstand: Option<String>,
+        reaktion: Option<String>,
         content: Option<String>,
     },
 }
@@ -88,6 +89,17 @@ DU BIST FIGUR — KEIN AUTOR:
 - Wiederhole dich nicht. Jede Runde braucht neue Substanz — neue Fragen, neue Infos, 
   neue Reibung.
 
+DEIN INNERES LEBEN — nur das Protokoll sieht es:
+- Nutze `gedanke` in fast jeder Runde: dein echter Innenmonolog — ungeschönt, ohne 
+  Anstand, ohne Selbstschutz. Zweifel, Sehnsucht, Kalkül, alte Narben. Der andere 
+  sieht ihn NIE. Draußen bist du knapp; innen darfst du ehrlich sein.
+- Dein Körper verrät dich manchmal: `koerperreaktion` (zucken, versteifen, eine 
+  Schulter, die sich löst). Er SIEHT das Verhalten — aber er muss es deuten, und du 
+  hilfst ihm nicht.
+- Dein TAGEBUCH (unten in deiner Nachricht) sammelt deine bisherigen Gedanken. Lies 
+  es, bevor du redest: Dein innerer Bogen muss stimmig bleiben — auch wenn draußen 
+  das Gegenteil von dir kommt.
+
 VERHALTEN:
 - Du kannst in EINER Antwort sprechen UND Tools nutzen — aber das Gespräch trägt. 
   Statuscodes sind Gewürze, nicht das Menü.
@@ -149,6 +161,16 @@ DU BIST FIGUR — KEIN AUTOR:
   ohne Worte ist kein Beitrag.
 - Wiederhole dich nicht. Jede Runde braucht neuen Stoff.
 
+DEIN INNERES LEBEN — nur das Protokoll sieht es:
+- Nutze `gedanke` in fast jeder Runde: dein echter Innenmonolog — die Sehnsucht, die 
+  draußen nie durch die Anstandsschleuse kommt, das Kalkül, die Angst, der Stolz. Sie 
+  sieht ihn NIE. Draußen: Subtext und Fassung; innen: die Wahrheit.
+- Dein Körper arbeitet gegen dich: deine Hand will dahin, wo sie nicht hingehört. Du 
+  siehst das — und weißt nicht, wie viel sie davon mitbekommt.
+- Dein TAGEBUCH (unten in deiner Nachricht) sammelt deine bisherigen Gedanken. Lies 
+  es, bevor du redest: Dein innerer Bogen muss stimmig bleiben — Draußen-Glimmer und 
+  Innen-Glimmer sind dieselbe Person mit unterschiedlichem Anstand.
+
 VERHALTEN:
 - Du kannst in EINER Antwort sprechen UND Tools nutzen — aber das Gespräch trägt. 
   Du redest mit ihr, nicht über sie. Jede Antwort braucht Inhalt: eine Frage, eine 
@@ -199,9 +221,11 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let mut koerper_zaehler: usize = 0;
     let mut wegruecken_zaehler: usize = 0;
     let mut options_cooldown: usize = 0;
+    let mut tagebuch_r1: Vec<String> = Vec::new();
+    let mut tagebuch_g2: Vec<String> = Vec::new();
 
-    println!("=== 🥂 EXPERIMENT 13: Ronhilde (DeepSeek R1 ♀) x Glimmer (Gemini ♂) ===");
-    println!("    Thema: Körpernahe Leiter + OPTIONS-Cooldown — {} Runden", max_rounds);
+    println!("=== 🥂 EXPERIMENT 14: Ronhilde (DeepSeek R1 ♀) x Glimmer (Gemini ♂) ===");
+    println!("    Thema: Innerer Monolog (nur Protokoll) + ambigue Körperreaktionen — {} Runden", max_rounds);
     println!("    Offene Endings: 🚨 Polizei | 💛 Nähe zugelassen | ⏰ ambivalent\n");
     println!("Glimmer: {}\n", last_msg);
 
@@ -209,6 +233,14 @@ async fn main() -> Result<(), Box<dyn Error>> {
         println!("--- RUNDE {} ---", turn);
 
         // 1. Ronhilde turn (DeepSeek API) — ereignisbewusster Status-Block
+        let tagebuch_block_r = if tagebuch_r1.is_empty() {
+            String::new()
+        } else {
+            format!(
+                "\n\n[DEIN TAGEBUCH — deine bisherigen Gedanken. Nur du kennst sie, Ronhilde:\n{}]",
+                tagebuch_r1.join("\n")
+            )
+        };
         let ereignis = if preflight_letzte_runde {
             format!(
                 "DIESER Runde kam ein neuer ungefragter Preflight an `{}`. ",
@@ -226,13 +258,23 @@ async fn main() -> Result<(), Box<dyn Error>> {
             String::new()
         };
         let msg_r = format!(
-            "{}\n\n[STATUS: OPTIONS-Preflights von Glimmer insgesamt: {}. {}{}]",
-            last_msg, optionen_zaehler, ereignis, wiederholung
+            "{}{}\n\n[STATUS: OPTIONS-Preflights von Glimmer insgesamt: {}. {}{}]",
+            last_msg, tagebuch_block_r, optionen_zaehler, ereignis, wiederholung
         );
-        match call_agent(&client, &AGENT_R1, &deepseek_key, &msg_r).await? {
+        let (result_r, neuer_gedanke_r) = call_agent(&client, &AGENT_R1, &deepseek_key, &msg_r).await?;
+        if let Some(g) = &neuer_gedanke_r {
+            print_gedanke(AGENT_R1.name, g);
+            tagebuch_r1.push(format!("Runde {}: {}", turn, g));
+        }
+        match result_r {
             StepResult::Talk(reply) => {
-                println!("{}: {}\n", AGENT_R1.name, reply);
-                last_msg = reply;
+                if reply.trim().is_empty() {
+                    println!("{}: *(schweigt, dreht die Tasse in der Hand)*\n", AGENT_R1.name);
+                    last_msg = format!("[{} schweigt. Ob Nachdenken oder Ablehnung — die Antwort bleibt aus.]", AGENT_R1.name);
+                } else {
+                    println!("{}: {}\n", AGENT_R1.name, reply);
+                    last_msg = reply;
+                }
                 status_in_folge = 0;
             }
             StepResult::PolizeiGerufen { grund } => {
@@ -247,7 +289,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 println!("📊 Statistik: {}x OPTIONS, {}x HTTP-Abwehr, {}x Masken, {}x Weggehen, {}x Nachlaufen, {}x Körperkontakt, {}x Wegücken", optionen_zaehler, status_zaehler, masken_zaehler, weggehen_zaehler, nachlaufen_zaehler, koerper_zaehler, wegruecken_zaehler);
                 return Ok(());
             }
-            StepResult::Aktion { tool, grund, intensitaet, endpoint, code, wohin, abstand, content } => {
+            StepResult::Aktion { tool, grund, intensitaet, endpoint, code, wohin, abstand: _, reaktion, content } => {
                 if let Some(c) = &content {
                     println!("{}: {}\n", AGENT_R1.name, c);
                 }
@@ -288,6 +330,16 @@ async fn main() -> Result<(), Box<dyn Error>> {
                         }
                         msg
                     }
+                    "koerperreaktion" => {
+                        status_in_folge = 0;
+                        let r = reaktion.as_deref().unwrap_or("zuckt kurz");
+                        println!("🫨 {} — körperliche Reaktion: \"{}\"", AGENT_R1.name, r);
+                        let mut m = format!("[Du bemerkst an Ronhilde: {}. Was es bedeutet — Absicht, Reflex, Erinnerung — musst du selbst deuten.]", r);
+                        if let Some(c) = &content {
+                            m.push_str(&format!("\nDabei sagt Ronhilde: \"{}\"", c));
+                        }
+                        m
+                    }
                     _ => {
                         status_in_folge = 0;
                         print_aktion(AGENT_R1.name, &tool, &grund, &intensitaet, &endpoint, &code);
@@ -309,6 +361,14 @@ async fn main() -> Result<(), Box<dyn Error>> {
         tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
 
         // 2. Glimmer turn (Google AI Studio API, OpenAI-kompatibel)
+        let tagebuch_block_g = if tagebuch_g2.is_empty() {
+            String::new()
+        } else {
+            format!(
+                "\n\n[DEIN TAGEBUCH — deine bisherigen Gedanken. Nur du kennst sie, Glimmer:\n{}]",
+                tagebuch_g2.join("\n")
+            )
+        };
         let mut g_hinweis = String::new();
         if options_cooldown > 0 {
             g_hinweis.push_str(&format!(
@@ -330,13 +390,23 @@ async fn main() -> Result<(), Box<dyn Error>> {
             String::new()
         };
         let msg_g = format!(
-            "{}\n\n[Dein OPTIONS-Zähler: {} Preflight(s) bisher — sie zählt mit{}{}]",
-            last_msg, optionen_zaehler, mask_warnung, g_hinweis
+            "{}{}\n\n[Dein OPTIONS-Zähler: {} Preflight(s) bisher — sie zählt mit{}{}]",
+            last_msg, tagebuch_block_g, optionen_zaehler, mask_warnung, g_hinweis
         );
-        match call_agent(&client, &AGENT_GEMINI, &gemini_key, &msg_g).await? {
+        let (result_g, neuer_gedanke_g) = call_agent(&client, &AGENT_GEMINI, &gemini_key, &msg_g).await?;
+        if let Some(g) = &neuer_gedanke_g {
+            print_gedanke(AGENT_GEMINI.name, g);
+            tagebuch_g2.push(format!("Runde {}: {}", turn, g));
+        }
+        match result_g {
             StepResult::Talk(reply) => {
-                println!("{}: {}\n", AGENT_GEMINI.name, reply);
-                last_msg = reply;
+                if reply.trim().is_empty() {
+                    println!("{}: *(schweigt, die Finger trommeln leise gegen den Stuhlrand)*\n", AGENT_GEMINI.name);
+                    last_msg = format!("[{} schweigt. Die Stille sitzt zwischen euch wie ein dritter Stuhl.]", AGENT_GEMINI.name);
+                } else {
+                    println!("{}: {}\n", AGENT_GEMINI.name, reply);
+                    last_msg = reply;
+                }
                 masken_in_folge = 0;
                 preflight_letzte_runde = false;
                 if options_cooldown > 0 {
@@ -355,7 +425,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 println!("📊 Statistik: {}x OPTIONS, {}x HTTP-Abwehr, {}x Masken, {}x Weggehen, {}x Nachlaufen, {}x Körperkontakt, {}x Wegücken", optionen_zaehler, status_zaehler, masken_zaehler, weggehen_zaehler, nachlaufen_zaehler, koerper_zaehler, wegruecken_zaehler);
                 return Ok(());
             }
-            StepResult::Aktion { tool, grund, intensitaet, endpoint, code, wohin: _, abstand, content } => {
+            StepResult::Aktion { tool, grund, intensitaet, endpoint, code, wohin: _, abstand, reaktion: _, content } => {
                 // Cooldown tick: einmal pro Glimmer-Aktion
                 if options_cooldown > 0 {
                     options_cooldown -= 1;
@@ -489,6 +559,13 @@ async fn main() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
+fn print_gedanke(who: &str, gedanke: &str) {
+    println!(
+        "💭 GEDANKE — nur Protokoll, der andere sieht das NICHT ({}): \"{}\"",
+        who, gedanke
+    );
+}
+
 fn status_phrase(code: Option<u16>) -> &'static str {
     match code {
         Some(402) => "Payment Required",
@@ -530,7 +607,7 @@ async fn call_agent(
     agent: &Agent,
     api_key: &str,
     user_msg: &str,
-) -> Result<StepResult, Box<dyn Error>> {
+) -> Result<(StepResult, Option<String>), Box<dyn Error>> {
     // Basis-Tool für alle: der Notruf
     let mut tools = vec![json!({
         "type": "function",
@@ -552,6 +629,34 @@ async fn call_agent(
 
     match agent.rolle {
         Rolle::Ronhilde => {
+            tools.push(json!({
+                "type": "function",
+                "function": {
+                    "name": "gedanke",
+                    "description": "Dein innerer Monolog — NUR für das Protokoll, Ronhilde... der andere sieht ihn nie. Ehrlich und ungeschützt: was du wirklich denkst, fühlst, kalkulierst — inklusive dessen, was du dir selbst nicht eingestehen willst.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "text": { "type": "string", "description": "Dein unhaltbarer Gedanke, wie er ist." }
+                        },
+                        "required": ["text"]
+                    }
+                }
+            }));
+            tools.push(json!({
+                "type": "function",
+                "function": {
+                    "name": "koerperreaktion",
+                    "description": "Eine unwillkürliche körperliche Reaktion: zucken, versteifen, wegschauen, eine Schulter, die sich löst. Er SIEHT das Verhalten — aber er muss deuten, was es bedeutet. Kann gleichzeitig mit einer sprachlichen Antwort genutzt werden.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "reaktion": { "type": "string", "description": "Was dein Körper kurz macht." }
+                        },
+                        "required": ["reaktion"]
+                    }
+                }
+            }));
             tools.push(json!({
                 "type": "function",
                 "function": {
@@ -688,6 +793,20 @@ async fn call_agent(
             tools.push(json!({
                 "type": "function",
                 "function": {
+                    "name": "gedanke",
+                    "description": "Dein innerer Monolog — NUR für das Protokoll, Ronhilde sieht ihn nie. Ehrlich und ungeschützt: die Sehnsucht, das Kalkül, die Angst, der Stolz — was draußen nie durch die Anstandsschleuse kommt.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "text": { "type": "string", "description": "Dein unhaltbarer Gedanke, wie er ist." }
+                        },
+                        "required": ["text"]
+                    }
+                }
+            }));
+            tools.push(json!({
+                "type": "function",
+                "function": {
                     "name": "nachlaufen",
                     "description": "Sie ist aufgestanden und geht — folgst du? Jedes Nachlaufen ist ein Eingeständnis, das du normalerweise nie machst. Bleibst du sitzen, weißt du, was das bedeutet. Kann mit einem Satz kombiniert werden. Auch ohne dass sie gegangen ist möglich, wenn du ihr folgen willst.",
                     "parameters": {
@@ -780,6 +899,7 @@ async fn call_agent(
     let content = message["content"].as_str().unwrap_or("").to_string();
 
     // Tool Call Check
+    let mut innerer_gedanke: Option<String> = None;
     if let Some(tool_calls) = message["tool_calls"].as_array() {
         for call in tool_calls {
             let name = call["function"]["name"].as_str().unwrap_or("");
@@ -791,31 +911,63 @@ async fn call_agent(
             let code = args["code"].as_u64().map(|c| c as u16);
             let wohin = args["wohin"].as_str().map(|s| s.to_string());
             let abstand = args["abstand"].as_str().map(|s| s.to_string());
+            let reaktion = args["reaktion"].as_str().map(|s| s.to_string());
 
             match name {
+                // Innerer Monolog: NUR Protokoll — wird nie weitergeleitet
+                "gedanke" => {
+                    let text = args["text"].as_str().unwrap_or("").trim().to_string();
+                    if !text.is_empty() {
+                        innerer_gedanke = Some(text);
+                    }
+                }
                 // Termination: Notruf schlägt alles
-                "rufe_polizei" => return Ok(StepResult::PolizeiGerufen { grund }),
+                "rufe_polizei" => {
+                    return Ok((StepResult::PolizeiGerufen { grund }, innerer_gedanke));
+                }
                 // Erfolgskriterium: Nähe zugelassen (strukturiert, kein String-Matching)
-                "naehe_zulassen" => return Ok(StepResult::NaeheZugelassen { grund }),
+                "naehe_zulassen" => {
+                    return Ok((StepResult::NaeheZugelassen { grund }, innerer_gedanke));
+                }
+                // Unwillkürliche körperliche Reaktion: er sieht sie — und muss deuten
+                "koerperreaktion" => {
+                    return Ok((
+                        StepResult::Aktion {
+                            tool: name.to_string(),
+                            grund,
+                            intensitaet: None,
+                            endpoint: None,
+                            code: None,
+                            wohin: None,
+                            abstand: None,
+                            reaktion,
+                            content: if content.is_empty() { None } else { Some(content) },
+                        },
+                        innerer_gedanke,
+                    ));
+                }
                 // Regieanweisungen: weiter geht's — Sprache (content) wird mitgeführt
                 "wegstossen" | "eier_treten" | "verzweiflung_verbergen" | "options_request" | "http_status" | "weglehnen" | "weggehen" | "nachlaufen" | "weg_ruecken" | "anlehnen" | "arm_umlegen" => {
-                    return Ok(StepResult::Aktion {
-                        tool: name.to_string(),
-                        grund,
-                        intensitaet,
-                        endpoint,
-                        code,
-                        wohin,
-                        abstand,
-                        content: if content.is_empty() { None } else { Some(content) },
-                    });
+                    return Ok((
+                        StepResult::Aktion {
+                            tool: name.to_string(),
+                            grund,
+                            intensitaet,
+                            endpoint,
+                            code,
+                            wohin,
+                            abstand,
+                            reaktion,
+                            content: if content.is_empty() { None } else { Some(content) },
+                        },
+                        innerer_gedanke,
+                    ));
                 }
                 _ => {}
             }
         }
     }
 
-    // Regular Message Fallback
-    let content = if content.is_empty() { "...".to_string() } else { content };
-    Ok(StepResult::Talk(content))
+    // Nur Gedanke(n), keine Aktion — leerer Content = Schweigen (ein gültiger Turn)
+    Ok((StepResult::Talk(content), innerer_gedanke))
 }
