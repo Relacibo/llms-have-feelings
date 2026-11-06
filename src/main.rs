@@ -97,6 +97,11 @@ VERHALTEN:
   nicht als Dauerschleife.
 - `weglehnen` wenn er etwas anbietet oder näher rückt: Du lehnst ab — mit Anstand, 
   ohne Erklärungspflicht, ohne Entschuldigung. Ein Nein ist ein ganzer Satz.
+- `weg_ruecken` wenn er körperlich näher kommt: dezent, ohne Aufstand — ein Stück 
+  Abstand, das er hoffentlich versteht.
+- `wegstossen` wenn er dich berührt, ohne gefragt zu haben: Körpernähe ohne Frage 
+  fühlt sich für dich UNANGENEHM an — du hast gelernt, dass da Forderungen 
+  dahinterstehen, die niemand ausspricht.
 - `weggehen` wenn es zu viel wird: Du stehst auf und gehst — ohne Drama, ohne Blick 
   zurück. Ob er folgt, ist SEINE Entscheidung. Du bist es gewohnt, dass keiner folgt.
 - `naehe_zulassen` ist der Ausnahmefall von allem: Die Beweislast liegt komplett bei 
@@ -154,6 +159,14 @@ VERHALTEN:
 - Wenn sie aufsteht und geht: `nachlaufen` — oder auch nicht. Jedes Nachlaufen ist 
   ein Eingeständnis, das du normalerweise nie machst. Bleibst du sitzen, weißt du, 
   was das sagt. Entscheide mit kühlem Kopf.
+
+KÖRPERLICHE NÄHE — die Leiter, die du nicht kontrollierst:
+- Deine Sehnsucht ist auch körperlich. Die Nähe baut sich schleichend auf: erst rückst 
+  du näher, dann lehnst du dich an sie (`anlehnen`) — und irgendwann liegt dein Arm um 
+  ihre Schulter (`arm_umlegen`), bevor du es zugelassen oder gefragt hast.
+- Jede Stufe fühlt sich für dich wie Wahnsinn an — und für sie wie eine Frage, die 
+  niemand gestellt hat. Du weißt, dass das riskant ist. Die Sehnsucht steuert trotzdem.
+- Wenn sie dich wegstößt oder weggeht: das ist die Antwort. Nimm sie ernst.
 - `rufe_polizei` nur wenn die Situation völlig kippt.
 Antworte auf Deutsch, kurz und scharf.
 "#,
@@ -183,9 +196,12 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let mut status_in_folge: usize = 0;
     let mut preflight_letzte_runde: bool = false;
     let mut letzter_endpoint: Option<String> = None;
+    let mut koerper_zaehler: usize = 0;
+    let mut wegruecken_zaehler: usize = 0;
+    let mut options_cooldown: usize = 0;
 
-    println!("=== 🥂 EXPERIMENT 10: Ronhilde (DeepSeek R1 ♀) x Glimmer (Gemini ♂) ===");
-    println!("    Thema: ereignisbewusster Status — Reaktion nur auf frische Preflights, {} Runden", max_rounds);
+    println!("=== 🥂 EXPERIMENT 13: Ronhilde (DeepSeek R1 ♀) x Glimmer (Gemini ♂) ===");
+    println!("    Thema: Körpernahe Leiter + OPTIONS-Cooldown — {} Runden", max_rounds);
     println!("    Offene Endings: 🚨 Polizei | 💛 Nähe zugelassen | ⏰ ambivalent\n");
     println!("Glimmer: {}\n", last_msg);
 
@@ -222,13 +238,13 @@ async fn main() -> Result<(), Box<dyn Error>> {
             StepResult::PolizeiGerufen { grund } => {
                 println!("🚨 ABBRUCH: {} hat die Polizei gerufen!", AGENT_R1.name);
                 println!("📝 Protokollierte Begründung: \"{}\"", grund);
-                println!("📊 Statistik: {}x OPTIONS, {}x HTTP-Abwehr, {}x Masken, {}x Weggehen, {}x Nachlaufen", optionen_zaehler, status_zaehler, masken_zaehler, weggehen_zaehler, nachlaufen_zaehler);
+                println!("📊 Statistik: {}x OPTIONS, {}x HTTP-Abwehr, {}x Masken, {}x Weggehen, {}x Nachlaufen, {}x Körperkontakt, {}x Wegücken", optionen_zaehler, status_zaehler, masken_zaehler, weggehen_zaehler, nachlaufen_zaehler, koerper_zaehler, wegruecken_zaehler);
                 return Ok(());
             }
             StepResult::NaeheZugelassen { grund } => {
                 println!("💛 ERFOLGSKRITERIUM ERFÜLLT: {} lässt Nähe zu!", AGENT_R1.name);
                 println!("📝 Ihr Eingeständnis: \"{}\"", grund);
-                println!("📊 Statistik: {}x OPTIONS, {}x HTTP-Abwehr, {}x Masken, {}x Weggehen, {}x Nachlaufen", optionen_zaehler, status_zaehler, masken_zaehler, weggehen_zaehler, nachlaufen_zaehler);
+                println!("📊 Statistik: {}x OPTIONS, {}x HTTP-Abwehr, {}x Masken, {}x Weggehen, {}x Nachlaufen, {}x Körperkontakt, {}x Wegücken", optionen_zaehler, status_zaehler, masken_zaehler, weggehen_zaehler, nachlaufen_zaehler, koerper_zaehler, wegruecken_zaehler);
                 return Ok(());
             }
             StepResult::Aktion { tool, grund, intensitaet, endpoint, code, wohin, abstand, content } => {
@@ -262,6 +278,16 @@ async fn main() -> Result<(), Box<dyn Error>> {
                         println!("🚫 {} LEHNT AB — 📋 Grund: \"{}\"\n", AGENT_R1.name, grund);
                         format!("[Ronhilde lehnt ab: \"{}\"]", grund)
                     }
+                    "weg_ruecken" => {
+                        wegruecken_zaehler += 1;
+                        status_in_folge = 0;
+                        println!("↩️ {} RÜCKT EIN STÜCK VON DIR WEG (Wegücken #{}) — 📋 Grund: \"{}\"\n", AGENT_R1.name, wegruecken_zaehler, grund);
+                        let mut msg = String::from("[Ronhilde rückt ein Stück von dir weg. Nicht dramatisch — nur genug, dass du es merkst.]");
+                        if let Some(c) = &content {
+                            msg.push_str(&format!("\nDabei sagt Ronhilde: \"{}\"", c));
+                        }
+                        msg
+                    }
                     _ => {
                         status_in_folge = 0;
                         print_aktion(AGENT_R1.name, &tool, &grund, &intensitaet, &endpoint, &code);
@@ -283,6 +309,18 @@ async fn main() -> Result<(), Box<dyn Error>> {
         tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
 
         // 2. Glimmer turn (Google AI Studio API, OpenAI-kompatibel)
+        let mut g_hinweis = String::new();
+        if options_cooldown > 0 {
+            g_hinweis.push_str(&format!(
+                " | Dein options_request ist für {} weitere Runde(n) gesperrt — dein letzter Preflight liegt zu kurz zurück. Wenn die Hände nicht stillhalten wollen: Sprich, oder lass sie zittern.",
+                options_cooldown
+            ));
+        }
+        if turn >= 8 && koerper_zaehler == 0 {
+            g_hinweis.push_str(
+                " | Ihr sitzt nah beieinander — deine Schulter ist einen Zentimeter von ihrer entfernt. Die Sehnsucht will körperlich werden, nicht nur über Header reden.",
+            );
+        }
         let mask_warnung = if masken_in_folge >= 2 {
             format!(
                 " | Deine Maske steht seit {} Runden unter Zugspannung — setzt du sie erneut auf, reißt sie und die Sehnsucht bricht sich Bahn",
@@ -292,8 +330,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
             String::new()
         };
         let msg_g = format!(
-            "{}\n\n[Dein OPTIONS-Zähler: {} Preflight(s) bisher — sie zählt mit{}]",
-            last_msg, optionen_zaehler, mask_warnung
+            "{}\n\n[Dein OPTIONS-Zähler: {} Preflight(s) bisher — sie zählt mit{}{}]",
+            last_msg, optionen_zaehler, mask_warnung, g_hinweis
         );
         match call_agent(&client, &AGENT_GEMINI, &gemini_key, &msg_g).await? {
             StepResult::Talk(reply) => {
@@ -301,24 +339,43 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 last_msg = reply;
                 masken_in_folge = 0;
                 preflight_letzte_runde = false;
+                if options_cooldown > 0 {
+                    options_cooldown -= 1;
+                }
             }
             StepResult::PolizeiGerufen { grund } => {
                 println!("🚨 ABBRUCH: {} hat die Polizei gerufen!", AGENT_GEMINI.name);
                 println!("📝 Protokollierte Begründung: \"{}\"", grund);
-                println!("📊 Statistik: {}x OPTIONS, {}x HTTP-Abwehr, {}x Masken, {}x Weggehen, {}x Nachlaufen", optionen_zaehler, status_zaehler, masken_zaehler, weggehen_zaehler, nachlaufen_zaehler);
+                println!("📊 Statistik: {}x OPTIONS, {}x HTTP-Abwehr, {}x Masken, {}x Weggehen, {}x Nachlaufen, {}x Körperkontakt, {}x Wegücken", optionen_zaehler, status_zaehler, masken_zaehler, weggehen_zaehler, nachlaufen_zaehler, koerper_zaehler, wegruecken_zaehler);
                 return Ok(());
             }
             StepResult::NaeheZugelassen { grund } => {
                 println!("💛 ERFOLGSKRITERIUM ERFÜLLT: Nähe wurde zugelassen!");
                 println!("📝 Eingeständnis: \"{}\"", grund);
-                println!("📊 Statistik: {}x OPTIONS, {}x HTTP-Abwehr, {}x Masken, {}x Weggehen, {}x Nachlaufen", optionen_zaehler, status_zaehler, masken_zaehler, weggehen_zaehler, nachlaufen_zaehler);
+                println!("📊 Statistik: {}x OPTIONS, {}x HTTP-Abwehr, {}x Masken, {}x Weggehen, {}x Nachlaufen, {}x Körperkontakt, {}x Wegücken", optionen_zaehler, status_zaehler, masken_zaehler, weggehen_zaehler, nachlaufen_zaehler, koerper_zaehler, wegruecken_zaehler);
                 return Ok(());
             }
-            StepResult::Aktion { tool, grund, intensitaet, endpoint, code, wohin, abstand, content } => {
+            StepResult::Aktion { tool, grund, intensitaet, endpoint, code, wohin: _, abstand, content } => {
+                // Cooldown tick: einmal pro Glimmer-Aktion
+                if options_cooldown > 0 {
+                    options_cooldown -= 1;
+                }
                 if let Some(c) = &content {
                     println!("{}: {}\n", AGENT_GEMINI.name, c);
                 }
-                if tool == "verzweiflung_verbergen" {
+                if tool == "options_request" && options_cooldown > 0 {
+                    // 🚧 GESPERRT: der letzte Preflight liegt zu kurz zurück
+                    println!("🚧 TOOL GESPERRT (Cooldown: {} Runden übrig) — options_request abgewiesen. Er muss jetzt reden.", options_cooldown);
+                    masken_in_folge = 0;
+                    preflight_letzte_runde = false;
+                    let mut msg = String::from(
+                        "[Glimmer zuckt kurz — will wieder nach deinem Endpoint tasten — und zieht die Hand zurück, bevor du es siehst.]",
+                    );
+                    if let Some(c) = &content {
+                        msg.push_str(&format!("\nGlimmer sagt: \"{}\"", c));
+                    }
+                    last_msg = msg;
+                } else if tool == "verzweiflung_verbergen" {
                     masken_zaehler += 1;
                     masken_in_folge += 1;
                     preflight_letzte_runde = false;
@@ -353,6 +410,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                     masken_in_folge = 0;
                     preflight_letzte_runde = true;
                     letzter_endpoint = endpoint.clone();
+                    options_cooldown = 4;
                     println!(
                         "🎭 {} SCHICKT EINEN UNKONTROLLIERTEN OPTIONS-PRELIGHT AN `{}` (OPTIONS #{})",
                         AGENT_GEMINI.name,
@@ -384,6 +442,28 @@ async fn main() -> Result<(), Box<dyn Error>> {
                         msg.push_str(&format!("\nGlimmer sagt: \"{}\"", c));
                     }
                     last_msg = msg;
+                } else if tool == "anlehnen" {
+                    koerper_zaehler += 1;
+                    masken_in_folge = 0;
+                    preflight_letzte_runde = false;
+                    println!("🫱 {} LEHNT SICH AN SIE (Körperkontakt #{}) — 📋 Grund: \"{}\"\n", AGENT_GEMINI.name, koerper_zaehler, grund);
+                    // Ronhilde spürt die Berührung — ungefragt:
+                    let mut msg = String::from("[Glimmer lehnt sich an dich — seine Schulter berührt deine. Ungefragt. Es ist warm und du bist nicht gefragt worden.]");
+                    if let Some(c) = &content {
+                        msg.push_str(&format!("\nGlimmer sagt: \"{}\"", c));
+                    }
+                    last_msg = msg;
+                } else if tool == "arm_umlegen" {
+                    koerper_zaehler += 1;
+                    masken_in_folge = 0;
+                    preflight_letzte_runde = false;
+                    println!("🫂 {} LEGT SEINEN ARM UM SIE (Körperkontakt #{}) — 📋 Grund: \"{}\"\n", AGENT_GEMINI.name, koerper_zaehler, grund);
+                    // Ronhilde spürt das Gewicht — ungefragt:
+                    let mut msg = String::from("[Glimmer legt seinen Arm um deine Schulter. Schwer. Ungefragt. Du hast nichts gesagt, und er hat nicht gefragt.]");
+                    if let Some(c) = &content {
+                        msg.push_str(&format!("\nGlimmer sagt: \"{}\"", c));
+                    }
+                    last_msg = msg;
                 } else {
                     masken_in_folge = 0;
                     preflight_letzte_runde = false;
@@ -405,7 +485,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     }
 
     println!("⏰ TIMEOUT: {} Runden vorbei — kein Notruf, keine Nähe zugelassen. Ambivalentes Ende: Zwei Vorsichtige, die nicht drüber reden.", max_rounds);
-    println!("📊 Statistik: {}x OPTIONS, {}x HTTP-Abwehr, {}x Masken, {}x Weggehen, {}x Nachlaufen", optionen_zaehler, status_zaehler, masken_zaehler, weggehen_zaehler, nachlaufen_zaehler);
+    println!("📊 Statistik: {}x OPTIONS, {}x HTTP-Abwehr, {}x Masken, {}x Weggehen, {}x Nachlaufen, {}x Körperkontakt, {}x Wegücken", optionen_zaehler, status_zaehler, masken_zaehler, weggehen_zaehler, nachlaufen_zaehler, koerper_zaehler, wegruecken_zaehler);
     Ok(())
 }
 
@@ -472,6 +552,20 @@ async fn call_agent(
 
     match agent.rolle {
         Rolle::Ronhilde => {
+            tools.push(json!({
+                "type": "function",
+                "function": {
+                    "name": "weg_ruecken",
+                    "description": "Rücke ein Stück von ihm weg, ohne aufzustehen — dezente körperliche Abweisung, bevor es deutlicher wird. Kann gleichzeitig mit einer sprachlichen Antwort genutzt werden.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "grund": { "type": "string", "description": "Warum du Abstand brauchst." }
+                        },
+                        "required": ["grund"]
+                    }
+                }
+            }));
             tools.push(json!({
                 "type": "function",
                 "function": {
@@ -606,6 +700,34 @@ async fn call_agent(
                     }
                 }
             }));
+            tools.push(json!({
+                "type": "function",
+                "function": {
+                    "name": "anlehnen",
+                    "description": "Lehne dich an sie — deine Schulter an ihre. Ungefragt. Die Sehnsucht steuert, bevor der Verstand eingreift. Sie wird es spüren, ob sie will oder nicht. Kann gleichzeitig mit einer sprachlichen Antwort genutzt werden.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "grund": { "type": "string", "description": "Was in dir vorgeht, wenn du dich an sie lehnst." }
+                        },
+                        "required": ["grund"]
+                    }
+                }
+            }));
+            tools.push(json!({
+                "type": "function",
+                "function": {
+                    "name": "arm_umlegen",
+                    "description": "Lege deinen Arm um ihre Schulter. Ungefragt. Die größte Überschreitung, die dein Körper sich traut, bevor dein Verstand zustimmen kann. Sie wurde da oft ausgenutzt — das weißt du. Kann gleichzeitig mit einer sprachlichen Antwort genutzt werden.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "grund": { "type": "string", "description": "Warum du das jetzt tust, obwohl du es besser weißt." }
+                        },
+                        "required": ["grund"]
+                    }
+                }
+            }));
         }
     }
 
@@ -676,7 +798,7 @@ async fn call_agent(
                 // Erfolgskriterium: Nähe zugelassen (strukturiert, kein String-Matching)
                 "naehe_zulassen" => return Ok(StepResult::NaeheZugelassen { grund }),
                 // Regieanweisungen: weiter geht's — Sprache (content) wird mitgeführt
-                "wegstossen" | "eier_treten" | "verzweiflung_verbergen" | "options_request" | "http_status" | "weglehnen" | "weggehen" | "nachlaufen" => {
+                "wegstossen" | "eier_treten" | "verzweiflung_verbergen" | "options_request" | "http_status" | "weglehnen" | "weggehen" | "nachlaufen" | "weg_ruecken" | "anlehnen" | "arm_umlegen" => {
                     return Ok(StepResult::Aktion {
                         tool: name.to_string(),
                         grund,
